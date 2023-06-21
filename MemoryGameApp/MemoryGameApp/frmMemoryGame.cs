@@ -34,20 +34,31 @@
         }
         private void BtnStart_Click(object? sender, EventArgs e)
         {
-            List<Button> remaingcards = allcards;
+            List<Button> remaingcards = new();
+            remaingcards = allcards;
 
             //In this for loop it will add sets of two cards to the sets list for all cards
-            for (int i = 0; i < 9; i++)
+            while (remaingcards.Count() > 1)
             {
-                int cardone = rnd.Next(remaingcards.Count());
-                int cardtwo = rnd.Next(remaingcards.Count());
-                sets.Add(new() { remaingcards[cardone], remaingcards[cardtwo] });
-                remaingcards.RemoveAt(cardone);
-                remaingcards.RemoveAt(cardtwo);
+                int card_one = rnd.Next(remaingcards.Count());
+                int card_two = rnd.Next(remaingcards.Count());
+                while (card_one == card_two)
+                {
+                    card_two = rnd.Next(remaingcards.Count());
+                }
+
+                sets.Add(new() { remaingcards[card_one], remaingcards[card_two] });
+                remaingcards.RemoveAt(card_one);
+                //To make sure it doesn't attempt to remove an index that is out off bound because card 1 was already removed
+                if (card_one < card_two)
+                {
+                    card_two--;
+                }
+                remaingcards.RemoveAt(card_two);
             }
-            //Will add picture to set
-            string picture = "A";
-            sets.ForEach(s => 
+            //Will add different picture to set
+            char picture = 'I';
+            sets.ForEach(s =>
             {
                 s.ForEach(c => c.Text = picture.ToString());
                 picture++;
@@ -55,4 +66,3 @@
         }
     }
 }
-//?? Do I need a set list, or should I just add the text to cardone and cardtwo and then remove them from the list of cards?

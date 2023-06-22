@@ -25,18 +25,14 @@
             btnCard1.BackColor = Color.Orange;
             btnCard1.ForeColor = btnCard1.BackColor;
         }
-        private void Card_Click(object? sender, EventArgs e)
+        private void ShuffleCards()
         {
-            if (sender is Button btn)
-            {
-                ExposeCard(btn);
-            }
-        }
-        private void BtnStart_Click(object? sender, EventArgs e)
-        {
+            char picture = 'I';
             List<Button> remaingcards = new();
-            remaingcards = allcards;
-
+            allcards.ForEach(b => remaingcards.Add(b));
+            allcards.ForEach(b => b.Font = FontFamily("Ariel"))
+            ; FontDialog font = new FontDialog() { };
+            Font sel = FontDialog;
             //In this for loop it will add sets of two cards to the sets list for all cards
             while (remaingcards.Count() > 1)
             {
@@ -57,12 +53,24 @@
                 remaingcards.RemoveAt(card_two);
             }
             //Will add different picture to set
-            char picture = 'I';
+            
             sets.ForEach(s =>
             {
                 s.ForEach(c => c.Text = picture.ToString());
                 picture++;
             });
         }
+        private void Card_Click(object? sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                ExposeCard(btn);
+            }
+        }
+        private void BtnStart_Click(object? sender, EventArgs e)
+        {
+            ShuffleCards();
+        }
     }
 }
+//Need to figure out why the char keeps on moving forward and doesn't reuse

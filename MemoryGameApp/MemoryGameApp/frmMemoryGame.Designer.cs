@@ -59,7 +59,7 @@
             txtPlayer2Sets = new TextBox();
             btnCard1 = new Button();
             tblMessages = new TableLayoutPanel();
-            label1 = new Label();
+            lblMessage = new Label();
             lblPlayerMode = new Label();
             tblMain.SuspendLayout();
             flpOptions.SuspendLayout();
@@ -115,266 +115,247 @@
             // 
             btnCard20.BackColor = Color.Orange;
             btnCard20.Dock = DockStyle.Fill;
-            btnCard20.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard20.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard20.ForeColor = Color.Orange;
             btnCard20.Location = new Point(488, 476);
             btnCard20.Margin = new Padding(8);
             btnCard20.Name = "btnCard20";
             btnCard20.Size = new Size(108, 110);
             btnCard20.TabIndex = 21;
-            btnCard20.Text = "A";
             btnCard20.UseVisualStyleBackColor = false;
             // 
             // btnCard19
             // 
             btnCard19.BackColor = Color.Orange;
             btnCard19.Dock = DockStyle.Fill;
-            btnCard19.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard19.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard19.ForeColor = Color.Orange;
             btnCard19.Location = new Point(368, 476);
             btnCard19.Margin = new Padding(8);
             btnCard19.Name = "btnCard19";
             btnCard19.Size = new Size(104, 110);
             btnCard19.TabIndex = 20;
-            btnCard19.Text = "A";
             btnCard19.UseVisualStyleBackColor = false;
             // 
             // btnCard18
             // 
             btnCard18.BackColor = Color.Orange;
             btnCard18.Dock = DockStyle.Fill;
-            btnCard18.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard18.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard18.ForeColor = Color.Orange;
             btnCard18.Location = new Point(248, 476);
             btnCard18.Margin = new Padding(8);
             btnCard18.Name = "btnCard18";
             btnCard18.Size = new Size(104, 110);
             btnCard18.TabIndex = 19;
-            btnCard18.Text = "A";
             btnCard18.UseVisualStyleBackColor = false;
             // 
             // btnCard17
             // 
             btnCard17.BackColor = Color.Orange;
             btnCard17.Dock = DockStyle.Fill;
-            btnCard17.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard17.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard17.ForeColor = Color.Orange;
             btnCard17.Location = new Point(128, 476);
             btnCard17.Margin = new Padding(8);
             btnCard17.Name = "btnCard17";
             btnCard17.Size = new Size(104, 110);
             btnCard17.TabIndex = 18;
-            btnCard17.Text = "A";
             btnCard17.UseVisualStyleBackColor = false;
             // 
             // btnCard16
             // 
             btnCard16.BackColor = Color.Orange;
             btnCard16.Dock = DockStyle.Fill;
-            btnCard16.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard16.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard16.ForeColor = Color.Orange;
             btnCard16.Location = new Point(8, 476);
             btnCard16.Margin = new Padding(8);
             btnCard16.Name = "btnCard16";
             btnCard16.Size = new Size(104, 110);
             btnCard16.TabIndex = 17;
-            btnCard16.Text = "A";
             btnCard16.UseVisualStyleBackColor = false;
             // 
             // btnCard15
             // 
             btnCard15.BackColor = Color.Orange;
             btnCard15.Dock = DockStyle.Fill;
-            btnCard15.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard15.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard15.ForeColor = Color.Orange;
             btnCard15.Location = new Point(488, 350);
             btnCard15.Margin = new Padding(8);
             btnCard15.Name = "btnCard15";
             btnCard15.Size = new Size(108, 110);
             btnCard15.TabIndex = 16;
-            btnCard15.Text = "A";
             btnCard15.UseVisualStyleBackColor = false;
             // 
             // btnCard14
             // 
             btnCard14.BackColor = Color.Orange;
             btnCard14.Dock = DockStyle.Fill;
-            btnCard14.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard14.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard14.ForeColor = Color.Orange;
             btnCard14.Location = new Point(368, 350);
             btnCard14.Margin = new Padding(8);
             btnCard14.Name = "btnCard14";
             btnCard14.Size = new Size(104, 110);
             btnCard14.TabIndex = 15;
-            btnCard14.Text = "A";
             btnCard14.UseVisualStyleBackColor = false;
             // 
             // btnCard13
             // 
             btnCard13.BackColor = Color.Orange;
             btnCard13.Dock = DockStyle.Fill;
-            btnCard13.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard13.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard13.ForeColor = Color.Orange;
             btnCard13.Location = new Point(248, 350);
             btnCard13.Margin = new Padding(8);
             btnCard13.Name = "btnCard13";
             btnCard13.Size = new Size(104, 110);
             btnCard13.TabIndex = 14;
-            btnCard13.Text = "A";
             btnCard13.UseVisualStyleBackColor = false;
             // 
             // btnCard12
             // 
             btnCard12.BackColor = Color.Orange;
             btnCard12.Dock = DockStyle.Fill;
-            btnCard12.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard12.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard12.ForeColor = Color.Orange;
             btnCard12.Location = new Point(128, 350);
             btnCard12.Margin = new Padding(8);
             btnCard12.Name = "btnCard12";
             btnCard12.Size = new Size(104, 110);
             btnCard12.TabIndex = 13;
-            btnCard12.Text = "A";
             btnCard12.UseVisualStyleBackColor = false;
             // 
             // btnCard11
             // 
             btnCard11.BackColor = Color.Orange;
             btnCard11.Dock = DockStyle.Fill;
-            btnCard11.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard11.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard11.ForeColor = Color.Orange;
             btnCard11.Location = new Point(8, 350);
             btnCard11.Margin = new Padding(8);
             btnCard11.Name = "btnCard11";
             btnCard11.Size = new Size(104, 110);
             btnCard11.TabIndex = 12;
-            btnCard11.Text = "A";
             btnCard11.UseVisualStyleBackColor = false;
             // 
             // btnCard10
             // 
             btnCard10.BackColor = Color.Orange;
             btnCard10.Dock = DockStyle.Fill;
-            btnCard10.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard10.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard10.ForeColor = Color.Orange;
             btnCard10.Location = new Point(488, 224);
             btnCard10.Margin = new Padding(8);
             btnCard10.Name = "btnCard10";
             btnCard10.Size = new Size(108, 110);
             btnCard10.TabIndex = 11;
-            btnCard10.Text = "A";
             btnCard10.UseVisualStyleBackColor = false;
             // 
             // btnCard9
             // 
             btnCard9.BackColor = Color.Orange;
             btnCard9.Dock = DockStyle.Fill;
-            btnCard9.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard9.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard9.ForeColor = Color.Orange;
             btnCard9.Location = new Point(368, 224);
             btnCard9.Margin = new Padding(8);
             btnCard9.Name = "btnCard9";
             btnCard9.Size = new Size(104, 110);
             btnCard9.TabIndex = 10;
-            btnCard9.Text = "A";
             btnCard9.UseVisualStyleBackColor = false;
             // 
             // btnCard8
             // 
             btnCard8.BackColor = Color.Orange;
             btnCard8.Dock = DockStyle.Fill;
-            btnCard8.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard8.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard8.ForeColor = Color.Orange;
             btnCard8.Location = new Point(248, 224);
             btnCard8.Margin = new Padding(8);
             btnCard8.Name = "btnCard8";
             btnCard8.Size = new Size(104, 110);
             btnCard8.TabIndex = 9;
-            btnCard8.Text = "A";
             btnCard8.UseVisualStyleBackColor = false;
             // 
             // btnCard7
             // 
             btnCard7.BackColor = Color.Orange;
             btnCard7.Dock = DockStyle.Fill;
-            btnCard7.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard7.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard7.ForeColor = Color.Orange;
             btnCard7.Location = new Point(128, 224);
             btnCard7.Margin = new Padding(8);
             btnCard7.Name = "btnCard7";
             btnCard7.Size = new Size(104, 110);
             btnCard7.TabIndex = 8;
-            btnCard7.Text = "A";
             btnCard7.UseVisualStyleBackColor = false;
             // 
             // btnCard6
             // 
             btnCard6.BackColor = Color.Orange;
             btnCard6.Dock = DockStyle.Fill;
-            btnCard6.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard6.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard6.ForeColor = Color.Orange;
             btnCard6.Location = new Point(8, 224);
             btnCard6.Margin = new Padding(8);
             btnCard6.Name = "btnCard6";
             btnCard6.Size = new Size(104, 110);
             btnCard6.TabIndex = 7;
-            btnCard6.Text = "A";
             btnCard6.UseVisualStyleBackColor = false;
             // 
             // btnCard5
             // 
             btnCard5.BackColor = Color.Orange;
             btnCard5.Dock = DockStyle.Fill;
-            btnCard5.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard5.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard5.ForeColor = Color.Orange;
             btnCard5.Location = new Point(488, 98);
             btnCard5.Margin = new Padding(8);
             btnCard5.Name = "btnCard5";
             btnCard5.Size = new Size(108, 110);
             btnCard5.TabIndex = 6;
-            btnCard5.Text = "A";
             btnCard5.UseVisualStyleBackColor = false;
             // 
             // btnCard4
             // 
             btnCard4.BackColor = Color.Orange;
             btnCard4.Dock = DockStyle.Fill;
-            btnCard4.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard4.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard4.ForeColor = Color.Orange;
             btnCard4.Location = new Point(368, 98);
             btnCard4.Margin = new Padding(8);
             btnCard4.Name = "btnCard4";
             btnCard4.Size = new Size(104, 110);
             btnCard4.TabIndex = 5;
-            btnCard4.Text = "A";
             btnCard4.UseVisualStyleBackColor = false;
             // 
             // btnCard3
             // 
             btnCard3.BackColor = Color.Orange;
             btnCard3.Dock = DockStyle.Fill;
-            btnCard3.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard3.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard3.ForeColor = Color.Orange;
             btnCard3.Location = new Point(248, 98);
             btnCard3.Margin = new Padding(8);
             btnCard3.Name = "btnCard3";
             btnCard3.Size = new Size(104, 110);
             btnCard3.TabIndex = 4;
-            btnCard3.Text = "A";
             btnCard3.UseVisualStyleBackColor = false;
             // 
             // btnCard2
             // 
             btnCard2.BackColor = Color.Orange;
             btnCard2.Dock = DockStyle.Fill;
-            btnCard2.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard2.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard2.ForeColor = Color.Orange;
             btnCard2.Location = new Point(128, 98);
             btnCard2.Margin = new Padding(8);
             btnCard2.Name = "btnCard2";
             btnCard2.Size = new Size(104, 110);
             btnCard2.TabIndex = 3;
-            btnCard2.Text = "A";
             btnCard2.UseVisualStyleBackColor = false;
             // 
             // flpOptions
@@ -495,14 +476,13 @@
             // 
             btnCard1.BackColor = Color.Orange;
             btnCard1.Dock = DockStyle.Fill;
-            btnCard1.Font = new Font("Wingdings", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard1.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard1.ForeColor = Color.Orange;
             btnCard1.Location = new Point(8, 98);
             btnCard1.Margin = new Padding(8);
             btnCard1.Name = "btnCard1";
             btnCard1.Size = new Size(104, 110);
             btnCard1.TabIndex = 2;
-            btnCard1.Text = "A";
             btnCard1.UseVisualStyleBackColor = false;
             // 
             // tblMessages
@@ -511,7 +491,7 @@
             tblMain.SetColumnSpan(tblMessages, 5);
             tblMessages.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.3419647F));
             tblMessages.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 71.6580353F));
-            tblMessages.Controls.Add(label1, 0, 0);
+            tblMessages.Controls.Add(lblMessage, 0, 0);
             tblMessages.Controls.Add(lblPlayerMode, 0, 0);
             tblMessages.Dock = DockStyle.Fill;
             tblMessages.Location = new Point(3, 45);
@@ -522,17 +502,17 @@
             tblMessages.Size = new Size(598, 42);
             tblMessages.TabIndex = 22;
             // 
-            // label1
+            // lblMessage
             // 
-            label1.BorderStyle = BorderStyle.FixedSingle;
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(172, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(423, 42);
-            label1.TabIndex = 1;
-            label1.Text = "Press Start Game to start";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            lblMessage.BorderStyle = BorderStyle.FixedSingle;
+            lblMessage.Dock = DockStyle.Fill;
+            lblMessage.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            lblMessage.Location = new Point(172, 0);
+            lblMessage.Name = "lblMessage";
+            lblMessage.Size = new Size(423, 42);
+            lblMessage.TabIndex = 1;
+            lblMessage.Text = "Press Start Game to start";
+            lblMessage.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblPlayerMode
             // 
@@ -597,6 +577,6 @@
         private TextBox txtPlayer2Sets;
         private TableLayoutPanel tblMessages;
         private Label lblPlayerMode;
-        private Label label1;
+        private Label lblMessage;
     }
 }

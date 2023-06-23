@@ -4,6 +4,8 @@
     {
         List<Button> allcards;
         List<List<Button>> sets = new();
+        List<Button> pickedcards = new();
+
         Random rnd = new();
         enum GameStatusEnum { playing, finished, notstarted };
         GameStatusEnum gamestatus = GameStatusEnum.notstarted;
@@ -19,24 +21,35 @@
 
         private void ExposeCard(Button btn)
         {
-            if (gamestatus == GameStatusEnum.playing)
+            if (gamestatus == GameStatusEnum.playing && pickedcards.Count() < 2)
             {
                 btn.BackColor = Color.LightGoldenrodYellow;
                 btn.ForeColor = Color.Black;
+                pickedcards.Add(btn);
+                if (pickedcards.Count() == 2)
+                {
+                   HideCard();
+                }
             }
         }
         private void HideCard()
         {
-            //! Figure out how to pass in which card to hide 
-            //Add 4 second delay
-            DateTime starttime = DateTime.Now;
-            while ((DateTime.Now - starttime).TotalSeconds < 4)
+            //Adds a 3 second delay
+                        DateTime starttime = DateTime.Now;
+            while ((DateTime.Now - starttime).TotalSeconds < 3)
             {
                 Application.DoEvents();
-            }   
+            }
 
-            btnCard1.BackColor = Color.Orange;
-            btnCard1.ForeColor = btnCard1.BackColor;
+            //Turns back over exposed cards, and then clears list of exposed cards and changes turn
+            pickedcards.ForEach(card =>
+            {
+                card.BackColor = Color.Orange;
+                card.ForeColor = btnCard1.BackColor;
+            });
+            pickedcards.Clear();
+            currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
+            SetMessage();
         }
         private void ShuffleCards()
         {
@@ -66,7 +79,7 @@
             }
 
             //Will add different picture to each set
-            //??Need help to figure out why the char keeps on moving forward and doesn't reuse
+            //??Need help to figure out why the char keeps on moving forward and doesn't reuse, then change back to windings font
             sets.ForEach(s =>
                   {
                       s.ForEach(c => c.Text = picture.ToString());
@@ -97,12 +110,6 @@
         }
         private void Card_Click(object? sender, EventArgs e)
         {
-            DateTime starttime = DateTime.Now;
-            while ((DateTime.Now - starttime).TotalSeconds < 4)
-            {
-                Application.DoEvents();
-            }
-
             if (sender is Button btn)
             {
                 ExposeCard(btn);

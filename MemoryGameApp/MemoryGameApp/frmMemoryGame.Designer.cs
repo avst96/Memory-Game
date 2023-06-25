@@ -50,7 +50,7 @@
             btnCard2 = new Button();
             flpOptions = new FlowLayoutPanel();
             btnStart = new Button();
-            otpTwoPlayer = new RadioButton();
+            optTwoPlayer = new RadioButton();
             optSolo = new RadioButton();
             flpScore = new FlowLayoutPanel();
             lblPlayer1Sets = new Label();
@@ -362,7 +362,7 @@
             // 
             tblMain.SetColumnSpan(flpOptions, 5);
             flpOptions.Controls.Add(btnStart);
-            flpOptions.Controls.Add(otpTwoPlayer);
+            flpOptions.Controls.Add(optTwoPlayer);
             flpOptions.Controls.Add(optSolo);
             flpOptions.Controls.Add(flpScore);
             flpOptions.Dock = DockStyle.Fill;
@@ -382,20 +382,20 @@
             btnStart.Text = "Start Game";
             btnStart.UseVisualStyleBackColor = true;
             // 
-            // otpTwoPlayer
+            // optTwoPlayer
             // 
-            otpTwoPlayer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            otpTwoPlayer.AutoSize = true;
-            otpTwoPlayer.Checked = true;
-            otpTwoPlayer.Location = new Point(118, 3);
-            otpTwoPlayer.Margin = new Padding(10, 3, 3, 3);
-            otpTwoPlayer.Name = "otpTwoPlayer";
-            otpTwoPlayer.Padding = new Padding(14, 0, 0, 0);
-            otpTwoPlayer.Size = new Size(80, 36);
-            otpTwoPlayer.TabIndex = 1;
-            otpTwoPlayer.TabStop = true;
-            otpTwoPlayer.Text = "2 Player";
-            otpTwoPlayer.UseVisualStyleBackColor = true;
+            optTwoPlayer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            optTwoPlayer.AutoSize = true;
+            optTwoPlayer.Checked = true;
+            optTwoPlayer.Location = new Point(118, 3);
+            optTwoPlayer.Margin = new Padding(10, 3, 3, 3);
+            optTwoPlayer.Name = "optTwoPlayer";
+            optTwoPlayer.Padding = new Padding(14, 0, 0, 0);
+            optTwoPlayer.Size = new Size(80, 36);
+            optTwoPlayer.TabIndex = 1;
+            optTwoPlayer.TabStop = true;
+            optTwoPlayer.Text = "2 Player";
+            optTwoPlayer.UseVisualStyleBackColor = true;
             // 
             // optSolo
             // 
@@ -568,7 +568,7 @@
         private Button btnCard3;
         private Button btnCard2;
         private Button btnStart;
-        private RadioButton otpTwoPlayer;
+        private RadioButton optTwoPlayer;
         private RadioButton optSolo;
         private FlowLayoutPanel flpScore;
         private Label lblPlayer1Sets;

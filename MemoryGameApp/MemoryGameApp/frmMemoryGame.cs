@@ -5,12 +5,12 @@
         List<Button> allcards;
         List<List<Button>> sets = new();
         List<Button> pickedcards = new();
-
+        int score1 = 0, score2 = 0;
         Random rnd = new();
         enum GameStatusEnum { playing, finished, notstarted };
-        GameStatusEnum gamestatus = GameStatusEnum.notstarted;
+        GameStatusEnum gamestatus;
         enum TurnEnum { player1, player2 };
-        TurnEnum currentturn = TurnEnum.player1;
+        TurnEnum currentturn;
         public frmMemoryGame()
         {
             InitializeComponent();
@@ -18,33 +18,67 @@
             allcards.ForEach(c => c.Click += Card_Click);
             btnStart.Click += BtnStart_Click;
         }
+        private void StartNewGame()
+        {
+            //If pressed in middle playing will reset to not started
+            gamestatus = gamestatus == GameStatusEnum.playing ? GameStatusEnum.notstarted : GameStatusEnum.playing;
 
+            currentturn = TurnEnum.player1;
+            score1 = 0; score2 = 0;
+            allcards.ForEach(c =>
+            {
+                c.BackColor = Color.Orange;
+                c.ForeColor = Color.Orange;
+                c.Visible = true;
+            });
+            SetMessageAndBtns();
+            ShuffleCards();
+        }
         private void ExposeCard(Button btn)
         {
-            if (gamestatus == GameStatusEnum.playing && pickedcards.Count() < 2)
+            if (gamestatus == GameStatusEnum.playing && pickedcards.Count() < 2 && !pickedcards.Contains(btn))
             {
                 btn.BackColor = Color.LightGoldenrodYellow;
                 btn.ForeColor = Color.Black;
                 pickedcards.Add(btn);
+
+                //Once 2 cards are picked, they following will proceed 
                 if (pickedcards.Count() == 2)
                 {
                     ThreeSecWait();
-                    if (pickedcards[0].Text == pickedcards[1].Text)
+
+                    //To ensure that the New Game btn wasnt pressed during the wait
+                    if (gamestatus == GameStatusEnum.playing)
                     {
-                        pickedcards.ForEach(c => c.Visible = false);
-                        switch (currentturn)
+
+
+                        //If a match
+                        if (pickedcards[0].Text == pickedcards[1].Text)
                         {
-                            case TurnEnum.player1:
-                                txtPlayer1Sets.Text += 1;
-                                break;
-                            default:
-                                txtPlayer2Sets.Text += 1;
-                                break;
+                            pickedcards.ForEach(c => c.Visible = false);
+                            switch (currentturn)
+                            {
+                                case TurnEnum.player1:
+                                    score1++;
+                                    break;
+                                default:
+                                    score2++;
+                                    break;
+                            }
+                            pickedcards.Clear();
+
+                            //If all cards finished
+                            if (allcards.All(c => c.Visible == false))
+                            {
+                                gamestatus = GameStatusEnum.finished;
+                                SetMessageAndBtns();
+                            }
                         }
-                        pickedcards.Clear();
                     }
-                    //Turn will change in hide card
+
+                    //Should always run to change turn
                     HideCard();
+
                 }
             }
         }
@@ -59,7 +93,7 @@
             pickedcards.Clear();
             currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
 
-            SetMessage();
+            SetMessageAndBtns();
         }
 
         private void ThreeSecWait()
@@ -106,31 +140,35 @@
                       picture++;
                   });
         }
-        private void SetMessage()
+        private void SetMessageAndBtns()
         {
             string msg = "Press Start Game to start";
             string btnmessage = "Start Game";
+
             if (gamestatus == GameStatusEnum.playing)
             {
                 msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : "Player 2's Turn";
-                btnmessage = "Restart Game";
+                btnmessage = "New Game";
             }
             else if (gamestatus == GameStatusEnum.finished)
             {
-                int playeronescore = int.Parse(txtPlayer1Sets.Text);
-                int platertwoscore = int.Parse(txtPlayer2Sets.Text);
-                if (platertwoscore == playeronescore)
+                if (score1 == score2)
                 {
                     msg = "Tie!";
                 }
                 else
                 {
-                    msg = playeronescore > platertwoscore ? "Player 1 won!" : "Player 2 won!";
+                    msg = score1 > score2 ? "Player 1 won!" : "Player 2 won!";
                 }
             }
             lblMessage.Text = msg;
             btnStart.Text = btnmessage;
+            txtPlayer1Sets.Text = score1.ToString();
+            txtPlayer2Sets.Text = score2.ToString();
+            optTwoPlayer.Enabled = gamestatus != GameStatusEnum.playing ? true : false;
+            optSolo.Enabled = gamestatus != GameStatusEnum.playing ? true : false;
         }
+
         private void Card_Click(object? sender, EventArgs e)
         {
             if (sender is Button btn)
@@ -140,15 +178,8 @@
         }
         private void BtnStart_Click(object? sender, EventArgs e)
         {
-            gamestatus = GameStatusEnum.playing;
-
-            //Setting it to player2 will cause it to change back to player1 in HideCard() 
-            currentturn = TurnEnum.player2;
-            HideCard();
-            SetMessage();
-            ShuffleCards();
+            StartNewGame();
         }
     }
 }
-//Figure out how to check for sets, then if set add point to that player, remove the set from the deck
-//When restarting game hide all cards before shuffling, and reset player turn
+

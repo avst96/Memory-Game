@@ -8,7 +8,7 @@
         int score1 = 0, score2 = 0;
         Random rnd = new();
         enum GameStatusEnum { playing, finished, notstarted };
-        GameStatusEnum gamestatus;
+        GameStatusEnum gamestatus = GameStatusEnum.notstarted;
         enum TurnEnum { player1, player2 };
         TurnEnum currentturn;
         public frmMemoryGame()
@@ -183,3 +183,4 @@
     }
 }
 
+//Pressing before start game turn over card FIX

@@ -4,7 +4,8 @@
     {
         List<Button> allcards;
         List<List<Button>> sets = new();
-        List<Button> pickedcards = new();
+        List<Button> activecards = new();
+
         int score1 = 0, score2 = 0;
         Random rnd = new();
         enum GameStatusEnum { playing, finished, notstarted };
@@ -36,14 +37,14 @@
         }
         private void ExposeCard(Button btn)
         {
-            if (gamestatus == GameStatusEnum.playing && pickedcards.Count() < 2 && !pickedcards.Contains(btn))
+            if (gamestatus == GameStatusEnum.playing && activecards.Count() < 2 && !activecards.Contains(btn))
             {
                 btn.BackColor = Color.LightGoldenrodYellow;
                 btn.ForeColor = Color.Black;
-                pickedcards.Add(btn);
+                activecards.Add(btn);
 
                 //Once 2 cards are picked, they following will proceed 
-                if (pickedcards.Count() == 2)
+                if (activecards.Count() == 2)
                 {
                     ThreeSecWait();
 
@@ -53,9 +54,9 @@
 
 
                         //If a match
-                        if (pickedcards[0].Text == pickedcards[1].Text)
+                        if (activecards[0].Text == activecards[1].Text)
                         {
-                            pickedcards.ForEach(c => c.Visible = false);
+                            activecards.ForEach(c => c.Visible = false);
                             switch (currentturn)
                             {
                                 case TurnEnum.player1:
@@ -65,7 +66,7 @@
                                     score2++;
                                     break;
                             }
-                            pickedcards.Clear();
+                            activecards.Clear();
 
                             //If all cards finished
                             if (allcards.All(c => c.Visible == false))
@@ -85,12 +86,12 @@
         private void HideCard()
         {
             //Turns back over exposed cards, and then clears list of exposed cards and changes turn
-            pickedcards.ForEach(card =>
+            activecards.ForEach(card =>
             {
                 card.BackColor = Color.Orange;
                 card.ForeColor = Color.Orange;
             });
-            pickedcards.Clear();
+            activecards.Clear();
             currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
 
             SetMessageAndBtns();
@@ -107,6 +108,7 @@
 
         private void ShuffleCards()
         {
+            sets.Clear();
             char picture = 'I';
             List<Button> remaingcards = new();
             allcards.ForEach(b => remaingcards.Add(b));
@@ -116,6 +118,8 @@
             {
                 int card_one = rnd.Next(remaingcards.Count());
                 int card_two = rnd.Next(remaingcards.Count());
+
+                //while loop to ensure that card one and two are not the same
                 while (card_one == card_two)
                 {
                     card_two = rnd.Next(remaingcards.Count());
@@ -124,7 +128,7 @@
 
                 //The following removes the cards that already have a picture
                 remaingcards.RemoveAt(card_one);
-                //To make sure it doesn't attempt to remove an index that is out off bound because card 1 was already removed
+                //To make sure it doesn't attempt to remove an index that is out of bound because card 1 was already removed
                 if (card_one < card_two)
                 {
                     card_two--;
@@ -144,11 +148,13 @@
         {
             string msg = "Press Start Game to start";
             string btnmessage = "Start Game";
+            Color c = Color.Black;
 
             if (gamestatus == GameStatusEnum.playing)
             {
                 msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : "Player 2's Turn";
                 btnmessage = "New Game";
+                c = Color.Green;
             }
             else if (gamestatus == GameStatusEnum.finished)
             {
@@ -160,7 +166,9 @@
                 {
                     msg = score1 > score2 ? "Player 1 won!" : "Player 2 won!";
                 }
+                c = Color.MediumVioletRed;
             }
+            lblMessage.ForeColor = c;
             lblMessage.Text = msg;
             btnStart.Text = btnmessage;
             txtPlayer1Sets.Text = score1.ToString();
@@ -183,4 +191,4 @@
     }
 }
 
-//Pressing before start game turn over card FIX
+//For computer turn make a list that will keep tab of all cards that where already picked

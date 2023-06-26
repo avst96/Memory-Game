@@ -115,7 +115,7 @@
             // 
             btnCard20.BackColor = Color.Orange;
             btnCard20.Dock = DockStyle.Fill;
-            btnCard20.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard20.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard20.ForeColor = Color.Orange;
             btnCard20.Location = new Point(488, 476);
             btnCard20.Margin = new Padding(8);
@@ -128,7 +128,7 @@
             // 
             btnCard19.BackColor = Color.Orange;
             btnCard19.Dock = DockStyle.Fill;
-            btnCard19.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard19.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard19.ForeColor = Color.Orange;
             btnCard19.Location = new Point(368, 476);
             btnCard19.Margin = new Padding(8);
@@ -141,7 +141,7 @@
             // 
             btnCard18.BackColor = Color.Orange;
             btnCard18.Dock = DockStyle.Fill;
-            btnCard18.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard18.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard18.ForeColor = Color.Orange;
             btnCard18.Location = new Point(248, 476);
             btnCard18.Margin = new Padding(8);
@@ -154,7 +154,7 @@
             // 
             btnCard17.BackColor = Color.Orange;
             btnCard17.Dock = DockStyle.Fill;
-            btnCard17.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard17.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard17.ForeColor = Color.Orange;
             btnCard17.Location = new Point(128, 476);
             btnCard17.Margin = new Padding(8);
@@ -167,7 +167,7 @@
             // 
             btnCard16.BackColor = Color.Orange;
             btnCard16.Dock = DockStyle.Fill;
-            btnCard16.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard16.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard16.ForeColor = Color.Orange;
             btnCard16.Location = new Point(8, 476);
             btnCard16.Margin = new Padding(8);
@@ -180,7 +180,7 @@
             // 
             btnCard15.BackColor = Color.Orange;
             btnCard15.Dock = DockStyle.Fill;
-            btnCard15.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard15.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard15.ForeColor = Color.Orange;
             btnCard15.Location = new Point(488, 350);
             btnCard15.Margin = new Padding(8);
@@ -193,7 +193,7 @@
             // 
             btnCard14.BackColor = Color.Orange;
             btnCard14.Dock = DockStyle.Fill;
-            btnCard14.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard14.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard14.ForeColor = Color.Orange;
             btnCard14.Location = new Point(368, 350);
             btnCard14.Margin = new Padding(8);
@@ -206,7 +206,7 @@
             // 
             btnCard13.BackColor = Color.Orange;
             btnCard13.Dock = DockStyle.Fill;
-            btnCard13.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard13.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard13.ForeColor = Color.Orange;
             btnCard13.Location = new Point(248, 350);
             btnCard13.Margin = new Padding(8);
@@ -219,7 +219,7 @@
             // 
             btnCard12.BackColor = Color.Orange;
             btnCard12.Dock = DockStyle.Fill;
-            btnCard12.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard12.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard12.ForeColor = Color.Orange;
             btnCard12.Location = new Point(128, 350);
             btnCard12.Margin = new Padding(8);
@@ -232,7 +232,7 @@
             // 
             btnCard11.BackColor = Color.Orange;
             btnCard11.Dock = DockStyle.Fill;
-            btnCard11.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard11.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard11.ForeColor = Color.Orange;
             btnCard11.Location = new Point(8, 350);
             btnCard11.Margin = new Padding(8);
@@ -245,7 +245,7 @@
             // 
             btnCard10.BackColor = Color.Orange;
             btnCard10.Dock = DockStyle.Fill;
-            btnCard10.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard10.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard10.ForeColor = Color.Orange;
             btnCard10.Location = new Point(488, 224);
             btnCard10.Margin = new Padding(8);
@@ -258,7 +258,7 @@
             // 
             btnCard9.BackColor = Color.Orange;
             btnCard9.Dock = DockStyle.Fill;
-            btnCard9.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard9.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard9.ForeColor = Color.Orange;
             btnCard9.Location = new Point(368, 224);
             btnCard9.Margin = new Padding(8);
@@ -271,7 +271,7 @@
             // 
             btnCard8.BackColor = Color.Orange;
             btnCard8.Dock = DockStyle.Fill;
-            btnCard8.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard8.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard8.ForeColor = Color.Orange;
             btnCard8.Location = new Point(248, 224);
             btnCard8.Margin = new Padding(8);
@@ -284,7 +284,7 @@
             // 
             btnCard7.BackColor = Color.Orange;
             btnCard7.Dock = DockStyle.Fill;
-            btnCard7.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard7.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard7.ForeColor = Color.Orange;
             btnCard7.Location = new Point(128, 224);
             btnCard7.Margin = new Padding(8);
@@ -297,7 +297,7 @@
             // 
             btnCard6.BackColor = Color.Orange;
             btnCard6.Dock = DockStyle.Fill;
-            btnCard6.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard6.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard6.ForeColor = Color.Orange;
             btnCard6.Location = new Point(8, 224);
             btnCard6.Margin = new Padding(8);
@@ -310,7 +310,7 @@
             // 
             btnCard5.BackColor = Color.Orange;
             btnCard5.Dock = DockStyle.Fill;
-            btnCard5.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard5.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard5.ForeColor = Color.Orange;
             btnCard5.Location = new Point(488, 98);
             btnCard5.Margin = new Padding(8);
@@ -323,7 +323,7 @@
             // 
             btnCard4.BackColor = Color.Orange;
             btnCard4.Dock = DockStyle.Fill;
-            btnCard4.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard4.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard4.ForeColor = Color.Orange;
             btnCard4.Location = new Point(368, 98);
             btnCard4.Margin = new Padding(8);
@@ -336,7 +336,7 @@
             // 
             btnCard3.BackColor = Color.Orange;
             btnCard3.Dock = DockStyle.Fill;
-            btnCard3.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard3.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard3.ForeColor = Color.Orange;
             btnCard3.Location = new Point(248, 98);
             btnCard3.Margin = new Padding(8);
@@ -349,7 +349,7 @@
             // 
             btnCard2.BackColor = Color.Orange;
             btnCard2.Dock = DockStyle.Fill;
-            btnCard2.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard2.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard2.ForeColor = Color.Orange;
             btnCard2.Location = new Point(128, 98);
             btnCard2.Margin = new Padding(8);
@@ -476,7 +476,7 @@
             // 
             btnCard1.BackColor = Color.Orange;
             btnCard1.Dock = DockStyle.Fill;
-            btnCard1.Font = new Font("Book Antiqua", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            btnCard1.Font = new Font("Wingdings", 62F, FontStyle.Regular, GraphicsUnit.Point);
             btnCard1.ForeColor = Color.Orange;
             btnCard1.Location = new Point(8, 98);
             btnCard1.Margin = new Padding(8);

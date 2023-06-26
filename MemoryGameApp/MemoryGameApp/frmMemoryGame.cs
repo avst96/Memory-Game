@@ -180,8 +180,21 @@
                 availablecards.Clear();
                 availablecards = allcards.Where(c => c.Visible == true).ToList();
                 PlayCard(availablecards[rnd.Next(availablecards.Count)]);
+                TwoSecDelay();
+
+                //check if matches if yes pick other card
+                if (PickedCardsMatch() && gamestatus == GameStatusEnum.playing)
+                {
+                    Button btn = pickedcards.FirstOrDefault(c => c.Text == activecards[0].Text);
+                    PlayCard(btn);
+
+                }
+
+                //!TODO if not pick another rnd card
+
+
             }
-            //check if matches if not pick another rnd card
+
 
         }
         private void ShuffleCards()

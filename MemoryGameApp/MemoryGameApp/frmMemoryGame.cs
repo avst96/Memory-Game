@@ -9,6 +9,7 @@
         List<Button> availablecards = new();
         int match1 = 0;
         int match2 = 0;
+        string player2msg = "Player 2";
 
         int score1 = 0, score2 = 0;
         Random rnd = new();
@@ -54,16 +55,21 @@
         }
         private void PlayCard(Button btn)
         {
-            if (gamestatus == GameStatusEnum.playing && activecards.Count() < 2 && !activecards.Contains(btn))
+            if (gamestatus == GameStatusEnum.playing && activecards.Count < 2 && btn.BackColor == Color.Orange)
             {
                 btn.BackColor = Color.LightGoldenrodYellow;
                 btn.ForeColor = Color.Black;
                 activecards.Add(btn);
-                pickedcards.Add(btn);
+
+                //If btn is not yet in picked card list, it is added now
+                if (!pickedcards.Contains(btn))
+                {
+                    pickedcards.Add(btn);
+                }
 
 
                 //Once 2 cards are picked, they following will proceed 
-                if (activecards.Count() == 2)
+                if (activecards.Count == 2)
                 {
                     TwoSecDelay();
 
@@ -144,23 +150,24 @@
 
 
 
-            int pickedcount = pickedcards.Count();
+            int pickedcount = pickedcards.Count;
 
-            for (int i = 0; i < pickedcount - 1; i++)
+            //This checks for any matches in picked cards
+            for (int i = 0; i < pickedcount; i++)
             {
-                for (int j = i + 1; j < pickedcount - 1; j++)
+                for (int j = i + 1; j < pickedcount; j++)
                 {
                     match1 = i;
                     match2 = j;
-                    if (pickedcards[match1].Text == pickedcards[match2].Text)
+                    if (pickedcards[match1].Text == pickedcards[match2].Text && match1 != match2)
                     {
                         return true;
                     }
                 }
             }
             return false;
-
         }
+
         private void DoComputerMove()
         {
             //if set was already uncovered then pick it
@@ -168,34 +175,34 @@
             {
                 PlayCard(pickedcards[match1]);
                 TwoSecDelay();
-                if (gamestatus == GameStatusEnum.playing)
-                {
-                    PlayCard(pickedcards[match2]);
-                }
+                PlayCard(pickedcards[match2]);
             }
 
             //if set was not picked pick rnd card
             else
             {
-                availablecards.Clear();
-                availablecards = allcards.Where(c => c.Visible == true).ToList();
-                PlayCard(availablecards[rnd.Next(availablecards.Count)]);
+                PlayCard(PickRndCard());
                 TwoSecDelay();
 
                 //check if matches if yes pick other card
-                if (PickedCardsMatch() && gamestatus == GameStatusEnum.playing)
+                if (PickedCardsMatch())
                 {
-                    Button btn = pickedcards.FirstOrDefault(c => c.Text == activecards[0].Text);
+                    Button btn = pickedcards.First(c => c.Text == activecards[0].Text);
                     PlayCard(btn);
-
                 }
-
-                //!TODO if not pick another rnd card
-
-
+                else
+                {
+                    PlayCard(PickRndCard());
+                }
             }
-
-
+        }
+        private Button PickRndCard()
+        {
+            Button btn = new();
+            availablecards.Clear();
+            availablecards = allcards.Where(c => c.Visible == true && c.BackColor == Color.Orange).ToList();
+            btn = availablecards[rnd.Next(availablecards.Count)];
+            return btn;
         }
         private void ShuffleCards()
         {
@@ -205,15 +212,15 @@
             allcards.ForEach(b => remaingcards.Add(b));
 
             //In this for loop it will add sets of two cards to the sets list for all cards
-            while (remaingcards.Count() > 1)
+            while (remaingcards.Count > 1)
             {
-                int card_one = rnd.Next(remaingcards.Count());
-                int card_two = rnd.Next(remaingcards.Count());
+                int card_one = rnd.Next(remaingcards.Count);
+                int card_two = rnd.Next(remaingcards.Count);
 
                 //while loop to ensure that card one and two are not the same
                 while (card_one == card_two)
                 {
-                    card_two = rnd.Next(remaingcards.Count());
+                    card_two = rnd.Next(remaingcards.Count);
                 }
                 sets.Add(new() { remaingcards[card_one], remaingcards[card_two] });
 
@@ -242,14 +249,7 @@
 
             if (gamestatus == GameStatusEnum.playing)
             {
-                if (optSolo.Checked)
-                {
-                    msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : "Computer's Turn";
-                }
-                else
-                {
-                    msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : "Player 2's Turn";
-                }
+                msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : player2msg + "'s Turn";
                 btnmessage = "New Game";
                 c = Color.Green;
             }
@@ -261,7 +261,7 @@
                 }
                 else
                 {
-                    msg = score1 > score2 ? "Player 1 won!" : "Player 2 won!";
+                    msg = score1 > score2 ? "Player 1 won!" : player2msg + " won!";
                 }
                 c = Color.MediumVioletRed;
             }
@@ -283,16 +283,16 @@
         }
         private void Card_Click(object? sender, EventArgs e)
         {
-            //Add in to the if statement  && lblMessage.Text != "Computer's Turn"
-            if (sender is Button btn)
+            if (sender is Button btn && lblMessage.Text != "Computer's Turn")
             {
                 PlayCard(btn);
             }
         }
         private void Opt_CheckedChanged(object? sender, EventArgs e)
         {
+            player2msg = optSolo.Checked ? "Computer" : "Player 2";
             lblPlayerMode.Text = optSolo.Checked ? "Solo" : "2 Player";
+            lblPlayer2Sets.Text = player2msg + " Sets";
         }
     }
 }
-

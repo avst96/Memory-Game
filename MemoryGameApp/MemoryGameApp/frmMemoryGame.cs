@@ -30,6 +30,7 @@
         private void StartNewGame()
         {
             //both following if's can run every time the function is called without effect, however it will then do the process for no reason
+            //The first if runs if the game is not started or finished, the second if runs when playing or finished
             if (gamestatus != GameStatusEnum.playing)
             {
                 ShuffleCards();
@@ -50,6 +51,8 @@
             gamestatus = gamestatus == GameStatusEnum.playing ? GameStatusEnum.notstarted : GameStatusEnum.playing;
 
             score1 = 0; score2 = 0;
+            activecards.Clear();
+            pickedcards.Clear();
 
             SetMessageAndBtns();
         }
@@ -80,7 +83,14 @@
                         //If a match
                         if (activecards[0].Text == activecards[1].Text)
                         {
-                            activecards.ForEach(c => c.Visible = false);
+
+                            //Hides cards and removes them from picked list
+                            activecards.ForEach(c =>
+                            {
+                                c.Visible = false;
+                                pickedcards.Remove(c);
+                            });
+
                             switch (currentturn)
                             {
                                 case TurnEnum.player1:
@@ -100,8 +110,9 @@
                             }
                         }
 
-                        //Should always run to change turn
                         HideCard();
+                        currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
+                        SetMessageAndBtns();
 
                         if (optSolo.Checked && currentturn == TurnEnum.player2 && gamestatus == GameStatusEnum.playing)
                         {
@@ -112,7 +123,6 @@
                 }
             }
         }
-
         private static void TwoSecDelay()
         {
             DateTime starttime = DateTime.Now;
@@ -131,25 +141,9 @@
                 card.ForeColor = Color.Orange;
             });
             activecards.Clear();
-            currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
-
-            SetMessageAndBtns();
         }
         private bool PickedCardsMatch()
         {
-            //This for should remove sets that where won from the pickedcards list
-            for (int i = pickedcards.Count - 1; i >= 0; i--)
-            {
-                Button btn = pickedcards[i];
-
-                if (btn.Visible == false)
-                {
-                    pickedcards.Remove(btn);
-                }
-            }
-
-
-
             int pickedcount = pickedcards.Count;
 
             //This checks for any matches in picked cards
@@ -168,6 +162,7 @@
             return false;
         }
 
+        //UP to here
         private void DoComputerMove()
         {
             //if set was already uncovered then pick it

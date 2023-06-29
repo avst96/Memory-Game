@@ -83,7 +83,6 @@
                         //If a match
                         if (activecards[0].Text == activecards[1].Text)
                         {
-
                             //Hides cards and removes them from picked list
                             activecards.ForEach(c =>
                             {
@@ -161,8 +160,7 @@
             }
             return false;
         }
-
-        //UP to here
+        
         private void DoComputerMove()
         {
             //if set was already uncovered then pick it
@@ -182,7 +180,7 @@
                 //check if matches if yes pick other card
                 if (PickedCardsMatch())
                 {
-                    Button btn = pickedcards.First(c => c.Text == activecards[0].Text);
+                    Button btn = pickedcards.First(c => c.Text == activecards[0].Text && c != activecards[0]);
                     PlayCard(btn);
                 }
                 else
@@ -221,7 +219,7 @@
 
                 //The following removes the cards that are already in the set list
                 remaingcards.RemoveAt(card_one);
-                //To make sure it doesn't attempt to remove an index that is out of bound because card 1 was already removed
+                //To make sure it removes card two, as the index can change if card one is before card two
                 if (card_one < card_two)
                 {
                     card_two--;

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MemoryGameMAUI.MemoryGame"
+             Title="MemoryGame">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Entry">
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+            <Style TargetType="Line">
+                <Setter Property="Stroke" Value="Black"/>
+                <Setter Property="StrokeThickness" Value="2"/>
+
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <VerticalStackLayout >
+        <HorizontalStackLayout>
+            <Button x:Name="btnStart" Text="Start Game" Margin="5"/>
+            <RadioButton x:Name="opt2Player" Content="2 Player" IsChecked="True"/>
+            <RadioButton x:Name="optSolo" Content="Play Against Computer"/>
+            <Line Y1="-5" Y2="85"/>
+            <Label x:Name="lblPlayer1" Text="  Player 1 Score:" VerticalTextAlignment="Center"/>
+            <Entry x:Name="txtPlayer1" Text="0"/>
+            <Label x:Name="lblPlayer2" Text="  Player 2 Score:" VerticalTextAlignment="Center"/>
+            <Entry x:Name="txtPlayer2" Text="0"/>
+        </HorizontalStackLayout>
+
+        <Border>
+            <Grid ColumnDefinitions="*,auto,2*">
+                <Label x:Name="lblPlayerMode" Text="2 Player " Grid.Column="0" Style="{StaticResource Key=Message}"/>
+                <Label x:Name="lblMessage" Text="Press Start Game to start" Grid.Column="2" Style="{StaticResource Key=Message}"/>
+                <Line Grid.Column="1" Y2="50"/>
+            </Grid>
+        </Border>
+
+        <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="*,*,*,*" ColumnSpacing="10" RowSpacing="10" Padding="10">
+            <Button x:Name="btnCard1" Grid.Column="0" Grid.Row="0" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard2" Grid.Column="1" Grid.Row="0" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard3" Grid.Column="2" Grid.Row="0" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard4" Grid.Column="3" Grid.Row="0" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard5" Grid.Column="4" Grid.Row="0" Style="{StaticResource Key=Card}"/>
+
+            <Button x:Name="btnCard6" Grid.Column="0" Grid.Row="1" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard7" Grid.Column="1" Grid.Row="1" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard8" Grid.Column="2" Grid.Row="1" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard9" Grid.Column="3" Grid.Row="1" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard10" Grid.Column="4" Grid.Row="1" Style="{StaticResource Key=Card}"/>
+
+            <Button x:Name="btnCard11" Grid.Column="0" Grid.Row="2" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard12" Grid.Column="1" Grid.Row="2" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard13" Grid.Column="2" Grid.Row="2" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard14" Grid.Column="3" Grid.Row="2" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard15" Grid.Column="4" Grid.Row="2" Style="{StaticResource Key=Card}"/>
+
+            <Button x:Name="btnCard16" Grid.Column="0" Grid.Row="3" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard17" Grid.Column="1" Grid.Row="3" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard18" Grid.Column="2" Grid.Row="3" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard19" Grid.Column="3" Grid.Row="3" Style="{StaticResource Key=Card}"/>
+            <Button x:Name="btnCard20" Grid.Column="4" Grid.Row="3" Style="{StaticResource Key=Card}"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

@@ -48,6 +48,8 @@
     </Style>
     <Style TargetType="Button" x:Key="Card" CanCascade="True">
         <Setter Property="BackgroundColor" Value="#ffa500"/>
+        <Setter Property="FontFamily" Value="Wingding"/>
+        <Setter Property="FontSize" Value="62"/>
     </Style>
   
     <Style TargetType="CheckBox">

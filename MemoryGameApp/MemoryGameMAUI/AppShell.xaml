@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:MemoryGameMAUI"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
+    <ShellContent 
         Title="Memory Game"
         ContentTemplate="{DataTemplate local:MemoryGame}"
         Route="MemoryGame" />

@@ -2,10 +2,10 @@
 {
     public partial class frmMemoryGame : Form
     {
-        List<Button> allcards;
-        List<List<Button>> sets = new();
-        List<Button> activecards = new();
-        List<Button> pickedcards = new();
+        List<Button> allcards;   //
+        List<List<Button>> sets = new(); //
+        List<Button> faceupcards = new(); //
+        List<Button> cards_won = new();  //
         List<Button> availablecards = new();
         int match1 = 0;
         int match2 = 0;
@@ -51,28 +51,28 @@
             gamestatus = gamestatus == GameStatusEnum.playing ? GameStatusEnum.notstarted : GameStatusEnum.playing;
 
             score1 = 0; score2 = 0;
-            activecards.Clear();
-            pickedcards.Clear();
+            faceupcards.Clear();
+            cards_won.Clear();
 
             SetMessageAndBtns();
         }
         private void PlayCard(Button btn)
         {
-            if (gamestatus == GameStatusEnum.playing && activecards.Count < 2 && btn.BackColor == Color.Orange)
+            if (gamestatus == GameStatusEnum.playing && faceupcards.Count < 2 && btn.BackColor == Color.Orange)
             {
                 btn.BackColor = Color.LightGoldenrodYellow;
                 btn.ForeColor = Color.Black;
-                activecards.Add(btn);
+                faceupcards.Add(btn);
 
                 //If btn is not yet in picked card list, it is added now
-                if (!pickedcards.Contains(btn))
+                if (!cards_won.Contains(btn))
                 {
-                    pickedcards.Add(btn);
+                    cards_won.Add(btn);
                 }
 
 
                 //Once 2 cards are picked, they following will proceed 
-                if (activecards.Count == 2)
+                if (faceupcards.Count == 2)
                 {
                     TwoSecDelay();
 
@@ -81,13 +81,13 @@
                     {
 
                         //If a match
-                        if (activecards[0].Text == activecards[1].Text)
+                        if (faceupcards[0].Text == faceupcards[1].Text)
                         {
                             //Hides cards and removes them from picked list
-                            activecards.ForEach(c =>
+                            faceupcards.ForEach(c =>
                             {
                                 c.Visible = false;
-                                pickedcards.Remove(c);
+                                cards_won.Remove(c);
                             });
 
                             switch (currentturn)
@@ -99,7 +99,7 @@
                                     score2++;
                                     break;
                             }
-                            activecards.Clear();
+                            faceupcards.Clear();
 
                             //If all cards finished
                             if (allcards.All(c => c.Visible == false))
@@ -134,16 +134,16 @@
         private void HideCard()
         {
             //Turns back over exposed cards, and then clears list of exposed cards and changes turn
-            activecards.ForEach(card =>
+            faceupcards.ForEach(card =>
             {
                 card.BackColor = Color.Orange;
                 card.ForeColor = Color.Orange;
             });
-            activecards.Clear();
+            faceupcards.Clear();
         }
         private bool PickedCardsMatch()
         {
-            int pickedcount = pickedcards.Count;
+            int pickedcount = cards_won.Count;
 
             //This checks for any matches in picked cards
             for (int i = 0; i < pickedcount; i++)
@@ -152,7 +152,7 @@
                 {
                     match1 = i;
                     match2 = j;
-                    if (pickedcards[match1].Text == pickedcards[match2].Text && match1 != match2)
+                    if (cards_won[match1].Text == cards_won[match2].Text && match1 != match2)
                     {
                         return true;
                     }
@@ -166,9 +166,9 @@
             //if set was already uncovered then pick it
             if (PickedCardsMatch())
             {
-                PlayCard(pickedcards[match1]);
+                PlayCard(cards_won[match1]);
                 TwoSecDelay();
-                PlayCard(pickedcards[match2]);
+                PlayCard(cards_won[match2]);
             }
 
             //if set was not picked pick rnd card
@@ -180,7 +180,7 @@
                 //check if matches if yes pick other card
                 if (PickedCardsMatch())
                 {
-                    Button btn = pickedcards.First(c => c.Text == activecards[0].Text && c != activecards[0]);
+                    Button btn = cards_won.First(c => c.Text == faceupcards[0].Text && c != faceupcards[0]);
                     PlayCard(btn);
                 }
                 else

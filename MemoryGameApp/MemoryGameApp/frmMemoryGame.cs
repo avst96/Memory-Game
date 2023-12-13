@@ -22,40 +22,40 @@
             InitializeComponent();
             allcards = new() { btnCard1, btnCard2, btnCard3, btnCard4, btnCard5, btnCard6, btnCard7, btnCard8, btnCard9, btnCard10, btnCard11, btnCard12, btnCard13, btnCard14, btnCard15, btnCard16, btnCard17, btnCard18, btnCard19, btnCard20 };
             allcards.ForEach(c => c.Click += Card_Click);
-            btnStart.Click += BtnStart_Click;
+            //btnStart.Click += BtnStart_Click;
             optSolo.CheckedChanged += Opt_CheckedChanged;
         }
 
 
-        private void StartNewGame()
-        {
-            //both following if's can run every time the function is called without effect, however it will then do the process for no reason
-            //The first if runs if the game is not started or finished, the second if runs when playing or finished
-            if (gamestatus != GameStatusEnum.playing)
-            {
-                ShuffleCards();
-                currentturn = TurnEnum.player1;
-            }
-            if (gamestatus != GameStatusEnum.notstarted)
-            {
-                //To turn over all cards and put them in the deck
-                allcards.ForEach(c =>
-                {
-                    c.BackColor = Color.Orange;
-                    c.ForeColor = Color.Orange;
-                    c.Visible = true;
-                });
-            }
+      //  private void StartNewGame()
+        //{
+        //    //both following if's can run every time the function is called without effect, however it will then do the process for no reason
+        //    //The first if runs if the game is not started or finished, the second if runs when playing or finished
+        //    if (gamestatus != GameStatusEnum.playing)
+        //    {
+        //        ShuffleCards();
+        //        currentturn = TurnEnum.player1;
+        //    }
+        //    if (gamestatus != GameStatusEnum.notstarted)
+        //    {
+        //        //To turn over all cards and put them in the deck
+        //        allcards.ForEach(c =>
+        //        {
+        //            c.BackColor = Color.Orange;
+        //            c.ForeColor = Color.Orange;
+        //            c.Visible = true;
+        //        });
+        //    }
 
-            //If pressed in middle playing will reset to not started
-            gamestatus = gamestatus == GameStatusEnum.playing ? GameStatusEnum.notstarted : GameStatusEnum.playing;
+        //    //If pressed in middle playing will reset to not started
+        //    gamestatus = gamestatus == GameStatusEnum.playing ? GameStatusEnum.notstarted : GameStatusEnum.playing;
 
-            score1 = 0; score2 = 0;
-            faceupcards.Clear();
-            cards_won.Clear();
+        //    score1 = 0; score2 = 0;
+        //    faceupcards.Clear();
+        //    cards_won.Clear();
 
-            SetMessageAndBtns();
-        }
+        //    SetMessageAndBtns();
+        //}
         private void PlayCard(Button btn)
         {
             if (gamestatus == GameStatusEnum.playing && faceupcards.Count < 2 && btn.BackColor == Color.Orange)
@@ -270,10 +270,10 @@
         }
 
         //Event handlers
-        private void BtnStart_Click(object? sender, EventArgs e)
-        {
-            StartNewGame();
-        }
+        //private void BtnStart_Click(object? sender, EventArgs e)
+        //{
+        //    StartNewGame();
+        //}
         private void Card_Click(object? sender, EventArgs e)
         {
             if (sender is Button btn && lblMessage.Text != "Computer's Turn")

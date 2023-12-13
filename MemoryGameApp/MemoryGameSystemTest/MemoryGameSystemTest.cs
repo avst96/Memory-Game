@@ -4,10 +4,7 @@ namespace MemoryGameSystemTest
 {
     public class Tests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
+     
 
         [Test]
         public void StartGame()
@@ -47,7 +44,7 @@ namespace MemoryGameSystemTest
                 }
                 i++;
             }
-            Assert.That(card2, Is.Not.EqualTo(card1), "The shuffle has failed");
+            Assert.That(card2, Is.Not.EqualTo(card1), "The shuffle has failed, all cards have the same picture as before shuffle");
             TestContext.WriteLine($"The shuffle has completed successfully. Card num {i++} had the following picture before shuffle '{card1}' and was changed to '{card2}' after shuffle"); ;
         }
     }

@@ -10,7 +10,7 @@ namespace MemoryGameSystem
         private CardStatusEnum _cardstatus = CardStatusEnum.Facedown;
         private char _cardpicture;
         public enum CardStatusEnum { Facedown, Faceup, Claimed };
-        internal CardStatusEnum CardStatus
+        public CardStatusEnum CardStatus
         {
             get => _cardstatus;
             set

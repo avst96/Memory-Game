@@ -10,10 +10,12 @@ namespace MemoryGameSystem
         public enum GameStatusEnum { playing, finished, notstarted };
         List<List<Card>> sets = new();
         enum TurnEnum { player1, player2 };
-        TurnEnum currentturn;
+        private TurnEnum currentturn;
         private bool playagainstcomputer;
         Random rnd = new();
-
+        Card? card1 = null;
+        Card? card2 = null;
+        private string _gamemessage = "Press Start Game to start";
         public event PropertyChangedEventHandler? PropertyChanged;
 
 
@@ -28,49 +30,20 @@ namespace MemoryGameSystem
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;
         public int Player2Score { get; private set; } = 0;
-        public string GameMessage { get; private set; }
-        public string StartButtonText { get; private set; }
+        public string GameMessage {
+            get => _gamemessage;
+            private set { _gamemessage = value; InvokePropertyChanged(); } }
         public Color GameMessageColor { get; private set; }
+        public string StartButtonText { get; private set; } = string.Empty;
         public string Player2Name { get; private set; } = "Player 2";
+        public bool DisableBtnDuringPlay { get; private set; }
 
-        private void SetMessageAndBtns()
+
+        public void StartNewGame(bool solo = false)
         {
-            GameMessage = "Press Start Game to start";
-            StartButtonText = "Start Game";
-            GameMessageColor = Color.Black;
-
-            if (gamestatus == GameStatusEnum.playing)
-            {
-                GameMessage = currentturn == TurnEnum.player1 ? "Player 1's Turn" : Player2Name + "'s Turn";
-                StartButtonText = "New Game";
-                GameMessageColor = Color.Green;
-            }
-            else if (gamestatus == GameStatusEnum.finished)
-            {
-                if (Player1Score == Player2Score)
-                {
-                    GameMessage = "Tie!";
-                }
-                else
-                {
-                    GameMessage = Player1Score > Player2Score ? "Player 1 won!" : Player2Name + " won!";
-                }
-                GameMessageColor = Color.MediumVioletRed;
-            }
-
-            
-            lblMessage.ForeColor = c;
-            lblMessage.Text = msg;
-            btnStart.Text = btnmessage;
-            txtPlayer1Sets.Text = score1.ToString();
-            txtPlayer2Sets.Text = score2.ToString();
-            optTwoPlayer.Enabled = gamestatus != GameStatusEnum.playing ? true : false;
-            optSolo.Enabled = gamestatus != GameStatusEnum.playing ? true : false;
-        }
-        public void StartNewGame(bool playagainstcomp = false)
-        {
-            playagainstcomputer = playagainstcomp;
+            playagainstcomputer = solo;
             Player2Name = playagainstcomputer == true ? "Computer" : "Player 2";
+            SetMessageAndBtns();
             if (gamestatus != GameStatusEnum.playing)
             {
                 ShuffleCards();
@@ -86,32 +59,30 @@ namespace MemoryGameSystem
 
             Player1Score = 0; Player2Score = 0;
         }
+        public void PlayCard(int cardindex)
+        {
+            if(!playagainstcomputer || currentturn  == TurnEnum.player1) 
+            {  DoMove(cardindex); }
+        }
 
-        public async Task PlayCard(int cardindex)
+        private async Task DoMove(int cardindex)
         {
             Card selcard = Cards[cardindex];
+            // !! FIGURE OUT WHY COUNT IS 20 AND GAMESTATUS NOT STARTED
             if (selcard.CardStatus == Card.CardStatusEnum.Facedown && Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Faceup) < 2 && gamestatus == GameStatusEnum.playing)
             {
                 selcard.CardStatus = Card.CardStatusEnum.Faceup;
-
-                ////If btn is not yet in picked card list, it is added now
-                //if (!cardspicked.Contains(btn))
-                //{
-                //    cardspicked.Add(btn);
-                //}
-
+                if (card1 is null) { card1 = selcard; } else { card2 = selcard; }
 
                 //Once 2 cards are picked, they following will proceed 
                 if (Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Faceup) == 2)
                 {
-                    Card? card1 = Cards.FirstOrDefault(c => c.CardStatus == Card.CardStatusEnum.Faceup);
-                    Card? card2 = Cards.LastOrDefault(c => c.CardStatus == Card.CardStatusEnum.Faceup);
+
                     await TwoSecDelay();
 
                     //To ensure that the New Game btn wasnt pressed during the wait
                     if (gamestatus == GameStatusEnum.playing)
                     {
-
                         //If a match
                         if (card1.CardPicture == card2.CardPicture)
                         {
@@ -146,12 +117,14 @@ namespace MemoryGameSystem
                         currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
                         SetMessageAndBtns();
 
-                        if (playagainstcomputer && currentturn == TurnEnum.player2 && gamestatus == GameStatusEnum.playing)
-                        {
-                            await TwoSecDelay();
-                            //DoComputerMove();
-                        }
+                        //if (playagainstcomputer && currentturn == TurnEnum.player2 && gamestatus == GameStatusEnum.playing)
+                        //{
+                        //    await TwoSecDelay();
+                        //    //DoComputerMove();
+                        //}
                     }
+                    card1 = null;
+                    card2 = null;
                 }
             }
         }
@@ -161,7 +134,7 @@ namespace MemoryGameSystem
             sets.Clear();
             char picture = 'I';
             List<Card> remaingcards = new();
-            Cards.ForEach(c => remaingcards.Add(c));
+            Cards.ForEach(remaingcards.Add);
 
             //In this for loop it will add sets of two cards to the sets list for all cards
             while (remaingcards.Count > 1)
@@ -194,7 +167,37 @@ namespace MemoryGameSystem
             });
         }
 
+        private void SetMessageAndBtns()
+        {
+            string msg = "Press Start Game to start";
+            string btnmsg = "Start Game";
+            Color c = Color.Black;
 
+            if (gamestatus == GameStatusEnum.playing)
+            {
+                msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : Player2Name + "'s Turn";
+                btnmsg = "New Game";
+                c = Color.Green;
+            }
+            else if (gamestatus == GameStatusEnum.finished)
+            {
+                if (Player1Score == Player2Score)
+                {
+                    msg = "Tie!";
+                }
+                else
+                {
+                    msg = Player1Score > Player2Score ? "Player 1 won!" : Player2Name + " won!";
+                }
+                c = Color.MediumVioletRed;
+            }
+
+
+            GameMessageColor = c;
+            GameMessage = msg;
+            StartButtonText = btnmsg;
+            DisableBtnDuringPlay = gamestatus == GameStatusEnum.playing ? false : true;
+        }
 
         private async Task TwoSecDelay()
         {

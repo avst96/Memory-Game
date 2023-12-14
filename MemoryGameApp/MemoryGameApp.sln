@@ -4,12 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryGameApp", "MemoryGameApp\MemoryGameApp.csproj", "{D04AC19E-6A54-4735-98FF-B09E85E7441A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9C0CB03A-D859-4EFB-9F85-EB9AD2582DAC} = {9C0CB03A-D859-4EFB-9F85-EB9AD2582DAC}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryGameMAUI", "MemoryGameMAUI\MemoryGameMAUI.csproj", "{43BC33B7-042A-49BE-9C1C-DB0DED859DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGameSystemTest", "MemoryGameSystemTest\MemoryGameSystemTest.csproj", "{0A73F3FE-9189-4ABE-B7BB-EC85FBF15E2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryGameSystemTest", "MemoryGameSystemTest\MemoryGameSystemTest.csproj", "{0A73F3FE-9189-4ABE-B7BB-EC85FBF15E2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGameSystem", "MemoryGameSystem\MemoryGameSystem.csproj", "{9C0CB03A-D859-4EFB-9F85-EB9AD2582DAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryGameSystem", "MemoryGameSystem\MemoryGameSystem.csproj", "{9C0CB03A-D859-4EFB-9F85-EB9AD2582DAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

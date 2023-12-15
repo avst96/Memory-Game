@@ -11,17 +11,52 @@ namespace MemoryGameApp
             InitializeComponent();
             btnStart.Click += BtnStart_Click;
             lblMessage.DataBindings.Add("Text", game, "GameMessage");
+            lblMessage.DataBindings.Add("ForeColor", game, "GameMessageColor");
+            txtPlayer1Sets.DataBindings.Add("Text", game, "Player1Score");
+            txtPlayer2Sets.DataBindings.Add("Text", game, "Player2Score");
+            lblPlayerMode.DataBindings.Add("Text", game, "Player2Name");
+            btnStart.DataBindings.Add("Text", game, "StartButtonText");
+            optSolo.DataBindings.Add("Enabled", game, "DisableBtnDuringPlay");
+            optTwoPlayer.DataBindings.Add("Enabled", game, "DisableBtnDuringPlay");
             foreach (Control c in tblMain.Controls)
             {
                 if (c is Button btn)
                 {
+                    Card current = game.Cards[ExtractIndexFromName(btn.Name)];
                     btn.Click += Card_Click;
-                    // btn.DataBindings.Add()
+                    btn.DataBindings.Add("ForeColor", current, "ForeColor");
+                    btn.DataBindings.Add("Text", current, "CardPicture");
+                    btn.DataBindings.Add("Visible", current, "IsVisible");
+                    btn.DataBindings.Add("BackColor", current, "BackColor");
                 }
             }
         }
 
 
+        private void BtnStart_Click(object? sender, EventArgs e)
+        {
+            game.StartNewGame(optSolo.Checked);
+        }
+        private void Card_Click(object? sender, EventArgs e)
+        {
+            if (sender is Button btn)
+            {
+                int i = ExtractIndexFromName(btn.Name);
+                _ = game.PlayCard(i);
+            }
+        }
+
+        private int ExtractIndexFromName(string btnname)
+        {
+            int i = -1;
+            Match num = Regex.Match(btnname, @"\d+");
+            if (num.Success)
+            {
+                i = int.Parse(num.Value);
+                i--;
+            }
+            return i;
+        }
 
         // FOLLOWING IS FOR COMPUTER TURN
         //private bool PickedCardsMatch()
@@ -81,68 +116,5 @@ namespace MemoryGameApp
         //    return btn;
         //}
 
-
-
-
-        //private void SetMessageAndBtns()
-        //{
-        //    string msg = "Press Start Game to start";
-        //    string btnmessage = "Start Game";
-        //    Color c = Color.Black;
-
-        //    if (gamestatus == GameStatusEnum.playing)
-        //    {
-        //        msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : player2msg + "'s Turn";
-        //        btnmessage = "New Game";
-        //        c = Color.Green;
-        //    }
-        //    else if (gamestatus == GameStatusEnum.finished)
-        //    {
-        //        if (score1 == score2)
-        //        {
-        //            msg = "Tie!";
-        //        }
-        //        else
-        //        {
-        //            msg = score1 > score2 ? "Player 1 won!" : player2msg + " won!";
-        //        }
-        //        c = Color.MediumVioletRed;
-        //    }
-
-
-        //    lblMessage.ForeColor = c;
-        //    lblMessage.Text = msg;
-        //    btnStart.Text = btnmessage;
-        //    txtPlayer1Sets.Text = score1.ToString();
-        //    txtPlayer2Sets.Text = score2.ToString();
-        //    optTwoPlayer.Enabled = gamestatus != GameStatusEnum.playing ? true : false;
-        //    optSolo.Enabled = gamestatus != GameStatusEnum.playing ? true : false;
-        //}
-
-
-        private void BtnStart_Click(object? sender, EventArgs e)
-        {
-            game.StartNewGame(optSolo.Checked);
-        }
-        private void Card_Click(object? sender, EventArgs e)
-        {
-            if (sender is Button btn)
-            {
-                int i = ExtractNumFromName(btn.Name);
-                game.PlayCard(i);
-            }
-        }
-
-        private int ExtractNumFromName(string btnname)
-        {
-            int i = -1;
-            Match num = Regex.Match(btnname, @"\d+");
-            if (num.Success)
-            {
-                i = int.Parse(num.Value);
-                i--;
-            }
-            return i;
-        }
     }
 }

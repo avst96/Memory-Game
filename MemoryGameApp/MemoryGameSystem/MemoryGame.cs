@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
 using System.Runtime.CompilerServices;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace MemoryGameSystem
 {
@@ -12,12 +11,11 @@ namespace MemoryGameSystem
         enum TurnEnum { player1, player2 };
         private TurnEnum currentturn;
         private bool playagainstcomputer;
-        Random rnd = new();
-        Card? card1 = null;
-        Card? card2 = null;
-        private string _gamemessage = "Press Start Game to start";
+        private Random rnd = new();
+        private Card? card1 = null;
+        private Card? card2 = null;
         public event PropertyChangedEventHandler? PropertyChanged;
-
+        private List<string> allproperties = new() { "Player1Score", "Player2Score", "GameMessage", "GameMessageColor", "StartButtonText", "Player2Name", "DisableBtnDuringPlay" };
 
         public MemoryGame()
         {
@@ -26,27 +24,53 @@ namespace MemoryGameSystem
                 Cards.Add(new Card());
             }
         }
+        // ! Remember to invoke property changes somewhere for 1) Startbtntext 2) Disablebtn 3) GameColor 4) GameMsg 5)6) scores
         public GameStatusEnum gamestatus { get; private set; } = GameStatusEnum.notstarted;
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;
         public int Player2Score { get; private set; } = 0;
-        public string GameMessage {
-            get => _gamemessage;
-            private set { _gamemessage = value; InvokePropertyChanged(); } }
-        public Color GameMessageColor { get; private set; }
-        public string StartButtonText { get; private set; } = string.Empty;
-        public string Player2Name { get; private set; } = "Player 2";
-        public bool DisableBtnDuringPlay { get; private set; }
+        public string GameMessage
+        {
+            get
+            {
+                string msg = "";
+                switch (gamestatus)
+                {
+
+                    case GameStatusEnum.notstarted:
+                        msg = "Press Start Game to start";
+                        break;
+                    case GameStatusEnum.playing:
+                        msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : Player2Name + "'s Turn";
+                        break;
+                    case GameStatusEnum.finished:
+                        if (Player1Score == Player2Score)
+                        {
+                            msg = "Tie!";
+                        }
+                        else
+                        {
+                            msg = Player1Score > Player2Score ? "Player 1 won!" : Player2Name + " won!";
+                        }
+                        break;
+                }
+                return msg;
+            }
+        }
+        public Color GameMessageColor { get => gamestatus == GameStatusEnum.notstarted ? Color.Black : gamestatus == GameStatusEnum.playing ? Color.Green : Color.MediumVioletRed; }
+        public string StartButtonText { get => gamestatus == GameStatusEnum.playing ? "New Game" : "Start Game"; }
+        public string Player2Name { get => playagainstcomputer ? "Computer" : "2 Player"; }
+        public bool DisableBtnDuringPlay { get => gamestatus == GameStatusEnum.playing ? false : true; }
 
 
         public void StartNewGame(bool solo = false)
         {
             playagainstcomputer = solo;
-            Player2Name = playagainstcomputer == true ? "Computer" : "Player 2";
-            SetMessageAndBtns();
             if (gamestatus != GameStatusEnum.playing)
             {
                 ShuffleCards();
+                card1 = null;
+                card2 = null;
                 currentturn = TurnEnum.player1;
             }
             if (gamestatus != GameStatusEnum.notstarted)
@@ -56,26 +80,27 @@ namespace MemoryGameSystem
 
             //If pressed in middle playing will reset to not started
             gamestatus = gamestatus == GameStatusEnum.playing ? GameStatusEnum.notstarted : GameStatusEnum.playing;
-
             Player1Score = 0; Player2Score = 0;
+            
+            InvokeAllPropertyChanged();
         }
-        public void PlayCard(int cardindex)
+        public async Task PlayCard(int cardindex)
         {
-            if(!playagainstcomputer || currentturn  == TurnEnum.player1) 
-            {  DoMove(cardindex); }
+            if (!playagainstcomputer || currentturn == TurnEnum.player1)
+            { await DoMove(cardindex); }
         }
 
         private async Task DoMove(int cardindex)
         {
             Card selcard = Cards[cardindex];
-            // !! FIGURE OUT WHY COUNT IS 20 AND GAMESTATUS NOT STARTED
+
             if (selcard.CardStatus == Card.CardStatusEnum.Facedown && Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Faceup) < 2 && gamestatus == GameStatusEnum.playing)
             {
                 selcard.CardStatus = Card.CardStatusEnum.Faceup;
                 if (card1 is null) { card1 = selcard; } else { card2 = selcard; }
 
                 //Once 2 cards are picked, they following will proceed 
-                if (Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Faceup) == 2)
+                if (Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Faceup) == 2 && card2 != null)
                 {
 
                     await TwoSecDelay();
@@ -95,9 +120,11 @@ namespace MemoryGameSystem
                             {
                                 case TurnEnum.player1:
                                     Player1Score++;
+                                    InvokePropertyChanged("Player1Score");
                                     break;
                                 default:
                                     Player2Score++;
+                                    InvokePropertyChanged("Player2Score");
                                     break;
                             }
 
@@ -105,7 +132,7 @@ namespace MemoryGameSystem
                             if (Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Claimed) == 20)
                             {
                                 gamestatus = GameStatusEnum.finished;
-                                SetMessageAndBtns();
+                                InvokeAllPropertyChanged();
                             }
                         }
                         else
@@ -115,7 +142,7 @@ namespace MemoryGameSystem
                         }
 
                         currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
-                        SetMessageAndBtns();
+                        InvokePropertyChanged("GameMessage");
 
                         //if (playagainstcomputer && currentturn == TurnEnum.player2 && gamestatus == GameStatusEnum.playing)
                         //{
@@ -167,41 +194,13 @@ namespace MemoryGameSystem
             });
         }
 
-        private void SetMessageAndBtns()
-        {
-            string msg = "Press Start Game to start";
-            string btnmsg = "Start Game";
-            Color c = Color.Black;
-
-            if (gamestatus == GameStatusEnum.playing)
-            {
-                msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : Player2Name + "'s Turn";
-                btnmsg = "New Game";
-                c = Color.Green;
-            }
-            else if (gamestatus == GameStatusEnum.finished)
-            {
-                if (Player1Score == Player2Score)
-                {
-                    msg = "Tie!";
-                }
-                else
-                {
-                    msg = Player1Score > Player2Score ? "Player 1 won!" : Player2Name + " won!";
-                }
-                c = Color.MediumVioletRed;
-            }
-
-
-            GameMessageColor = c;
-            GameMessage = msg;
-            StartButtonText = btnmsg;
-            DisableBtnDuringPlay = gamestatus == GameStatusEnum.playing ? false : true;
-        }
-
         private async Task TwoSecDelay()
         {
             await Task.Delay(2000);
+        }
+        private void InvokeAllPropertyChanged()
+        {
+            allproperties.ForEach(p => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p)));
         }
         private void InvokePropertyChanged([CallerMemberName] string propertyname = "")
         {

@@ -96,7 +96,8 @@ namespace MemoryGameSystem
         {
             Card selcard = Cards[cardindex];
 
-            if (selcard.CardStatus == Card.CardStatusEnum.Facedown && Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Faceup) < 2 && gamestatus == GameStatusEnum.playing)
+            if (selcard.CardStatus == Card.CardStatusEnum.Facedown && Cards.Count(c => 
+            c.CardStatus == Card.CardStatusEnum.Faceup) < 2 && gamestatus == GameStatusEnum.playing)
             {
                 selcard.CardStatus = Card.CardStatusEnum.Faceup;
                 if (card1 is null) { card1 = selcard; } else { card2 = selcard; }

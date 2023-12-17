@@ -76,6 +76,7 @@ namespace MemoryGameSystemTest
             TestContext.WriteLine("The picked cards where claimed and Player 1 score increased.");
         }
         [Test]
+        //Following test will take at least 20 sec to conclude
         public async Task FinishGame()
         {
             MemoryGame game = new();
@@ -90,6 +91,31 @@ namespace MemoryGameSystemTest
             }
             Assert.IsTrue(game.Cards.Count(c => c.IsVisible) == 0 && game.gamestatus == MemoryGame.GameStatusEnum.finished, "Game was not changed to finish status");
             TestContext.WriteLine($"Game finished with the following message {game.GameMessage}");
+        }
+        [Test]
+        public async Task ComputerPicksMatch()
+        {
+            MemoryGame game = new();
+            game.StartNewGame(true);
+            Assert.IsTrue(game.gamestatus == MemoryGame.GameStatusEnum.playing, "Game did not start");
+
+            await game.PlayCard(0);
+            int cardnotmatch = game.Cards.FindIndex(c => c.CardPicture != game.Cards[0].CardPicture);
+            await game.PlayCard(cardnotmatch);
+            //Now the computer does its move
+
+            int comscore = game.Player2Score;
+
+            Assert.IsTrue(game.Cards[0].CardStatus == Card.CardStatusEnum.Facedown, "Computer has already found the match for the first card picked, rerun test");
+            await game.PlayCard(cardnotmatch);
+            int cardmatch = game.Cards.FindIndex(1, c => c.CardPicture == game.Cards[0].CardPicture);
+            await game.PlayCard(cardmatch);
+            
+            //Now the computer does its 2nd move
+
+            Assert.IsTrue(game.Player2Score == ++comscore, "Computer has not claimed any set in its 2nd turn");
+            Assert.IsTrue(game.Cards[0].CardStatus == Card.CardStatusEnum.Claimed, "Computer has a card buy not the 1st card that was uncovered. Results are inconclusive. Rerun test");
+            TestContext.WriteLine("Computer has picked the 1st card with its matching card that have been previously picked.");
         }
     }
 }

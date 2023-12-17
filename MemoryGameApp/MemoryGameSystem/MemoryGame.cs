@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
 using System.Runtime.CompilerServices;
 
 namespace MemoryGameSystem
@@ -16,7 +15,7 @@ namespace MemoryGameSystem
         private Card? card1 = null;
         private Card? card2 = null;
         public event PropertyChangedEventHandler? PropertyChanged;
-        private List<string> allproperties = new() { "PlayerMode", "Player1Score", "Player2Score", "GameMessage", "GameMessageColor", "StartButtonText", "Player2Name", "DisableBtnDuringPlay" };
+        private List<string> allproperties = new() { "PlayerMode", "Player1Score", "Player2Score", "GameMessage", "GameMessageColor","GameMessageColorMAUI", "StartButtonText", "Player2Name", "DisableBtnDuringPlay" };
         private int match1;
         private int match2;
         private string player2 = string.Empty;
@@ -56,7 +55,8 @@ namespace MemoryGameSystem
                 return msg;
             }
         }
-        public Color GameMessageColor { get => gamestatus == GameStatusEnum.notstarted ? Color.Black : gamestatus == GameStatusEnum.playing ? Color.Green : Color.MediumVioletRed; }
+        public System.Drawing.Color GameMessageColor { get => gamestatus == GameStatusEnum.notstarted ? System.Drawing.Color.Black : gamestatus == GameStatusEnum.playing ? System.Drawing.Color.Green : System.Drawing.Color.MediumVioletRed; }
+        public Microsoft.Maui.Graphics.Color GameMessageColorMAUI { get => ConvertToMauiColor(GameMessageColor); }
         public string StartButtonText { get => gamestatus == GameStatusEnum.playing ? "New Game" : "Start Game"; }
         public string Player2Name { get => playagainstcomputer ? "Computer's Sets" : "Player 2 Sets"; }
         public string PlayerMode { get => playagainstcomputer ? "Solo" : "2 Player"; }
@@ -83,8 +83,7 @@ namespace MemoryGameSystem
             //If pressed in middle playing will reset to not started
             gamestatus = gamestatus == GameStatusEnum.playing ? GameStatusEnum.notstarted : GameStatusEnum.playing;
             Player1Score = 0; Player2Score = 0;
-
-            InvokeAllPropertyChanged();
+            InvokePropertyChanged(true);
         }
         public async Task PlayCard(int cardindex)
         {
@@ -125,11 +124,11 @@ namespace MemoryGameSystem
                             {
                                 case TurnEnum.player1:
                                     Player1Score++;
-                                    InvokePropertyChanged("Player1Score");
+                                    InvokePropertyChanged(false,"Player1Score");
                                     break;
                                 default:
                                     Player2Score++;
-                                    InvokePropertyChanged("Player2Score");
+                                    InvokePropertyChanged(false,"Player2Score");
                                     break;
                             }
 
@@ -137,7 +136,7 @@ namespace MemoryGameSystem
                             if (Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Claimed) == 20)
                             {
                                 gamestatus = GameStatusEnum.finished;
-                                InvokeAllPropertyChanged();
+                                InvokePropertyChanged(true);
                             }
                         }
                         else
@@ -147,7 +146,7 @@ namespace MemoryGameSystem
                         }
 
                         currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
-                        InvokePropertyChanged("GameMessage");
+                        InvokePropertyChanged(false, "GameMessage");
                         card1 = null;
                         card2 = null;
 
@@ -260,13 +259,23 @@ namespace MemoryGameSystem
         {
             await Task.Delay(2000);
         }
+        private Microsoft.Maui.Graphics.Color ConvertToMauiColor(System.Drawing.Color systemColor)
+        {
+            float red = systemColor.R / 255f;
+            float green = systemColor.G / 255f;
+            float blue = systemColor.B / 255f;
+            float alpha = systemColor.A / 255f;
+
+            return new Microsoft.Maui.Graphics.Color(red, green, blue, alpha);
+        }
         private void InvokeAllPropertyChanged()
         {
             allproperties.ForEach(p => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p)));
         }
-        private void InvokePropertyChanged([CallerMemberName] string propertyname = "")
+        private void InvokePropertyChanged(bool All = false, [CallerMemberName] string propertyname = "")
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+            if (All) { allproperties.ForEach(p => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p))); }
+            else { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname)); }
         }
     }
 }

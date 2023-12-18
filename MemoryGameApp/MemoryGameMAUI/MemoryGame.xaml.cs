@@ -1,16 +1,22 @@
-using System.Text.RegularExpressions;
-
 namespace MemoryGameMAUI;
 
 public partial class MemoryGame : ContentPage
 {
     MemoryGameSystem.MemoryGame game = new();
+    List<Button> allbtns = new();
 
     public MemoryGame()
     {
         InitializeComponent();
         game.PlayAgainstComputer = SoloOpt.IsChecked;
         BindingContext = game;
+        foreach (View v in MainGrid.Children)
+        {
+            if (v is Button b)
+            {
+                allbtns.Add(b);
+            }
+        }
     }
 
     private void StartBtn_Clicked(object sender, EventArgs e)
@@ -28,19 +34,7 @@ public partial class MemoryGame : ContentPage
     {
         if (sender is Button b)
         {
-            // !! Change to loop in begining of game?
-            _ = game.PlayCard(ExtractIndexFromName(b.StyleId));
+            _ = game.PlayCard(allbtns.IndexOf((Button)sender));
         }
-    }
-    private int ExtractIndexFromName(string btnname)
-    {
-        int i = -1;
-        Match num = Regex.Match(btnname, @"\d+");
-        if (num.Success)
-        {
-            i = int.Parse(num.Value);
-            i--;
-        }
-        return i;
     }
 }

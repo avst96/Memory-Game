@@ -19,49 +19,49 @@
 
 
 
-    <Grid ColumnDefinitions="*,*,*,*,*" RowDefinitions="auto,auto,*,*,*,*" ColumnSpacing="10" RowSpacing="10" Padding="10">
+    <Grid x:Name="MainGrid" ColumnDefinitions="*,*,*,*,*" RowDefinitions="auto,auto,*,*,*,*" ColumnSpacing="10" RowSpacing="10" Padding="10">
         <Grid ColumnDefinitions="auto,auto,auto,*,auto,auto,auto,auto" Grid.ColumnSpan="5" Grid.Row="0">
-            <Button x:Name="StartBtn" Text="Start Game" Margin="5" Grid.Column="0"/>
-            <RadioButton x:Name="MultiPlayerOpt" Content="2 Player" IsChecked="True" Grid.Column="1"/>
-            <RadioButton x:Name="SoloOpt" Content="Play Against Computer" Grid.Column="2"/>
+            <Button x:Name="StartBtn" Text="{Binding StartButtonText}" Margin="5" Grid.Column="0" Clicked="StartBtn_Clicked"/>
+            <RadioButton x:Name="MultiPlayerOpt" IsEnabled="{Binding DisableBtnDuringPlay}" Content="2 Player" IsChecked="True" Grid.Column="1"/>
+            <RadioButton x:Name="SoloOpt" IsEnabled="{Binding DisableBtnDuringPlay}" Content="Play Against Computer" Grid.Column="2" CheckedChanged="SoloOpt_CheckedChanged"/>
             <Line Y2="50" Grid.Column="3" HorizontalOptions="Center"/>
-            <Label x:Name="Player1Lbl" Text="  Player 1 Score:" VerticalTextAlignment="Center" Grid.Column="4"/>
-            <Entry x:Name="Player1Txt" Text="0" IsReadOnly="True" Grid.Column="5"/>
-            <Label x:Name="Player2Lbl" Text="  Player 2 Score:" VerticalTextAlignment="Center" Grid.Column="6"/>
-            <Entry x:Name="Player2Txt" Text="0" IsReadOnly="True" Grid.Column="7"/>
+            <Label x:Name="Player1Lbl" Text="  Player 1 Sets:" VerticalTextAlignment="Center" Grid.Column="4"/>
+            <Entry x:Name="Player1Txt" Text="{Binding Player1Score}" IsReadOnly="True" Grid.Column="5"/>
+            <Label x:Name="Player2Lbl" Text="{Binding Player2ScoreName}" VerticalTextAlignment="Center" Grid.Column="6"/>
+            <Entry x:Name="Player2Txt" Text="{Binding Player2Score}" IsReadOnly="True" Grid.Column="7"/>
         </Grid>
 
         <Border Grid.Row="1" Grid.ColumnSpan="5">
             <Grid ColumnDefinitions="*,auto,2*" RowDefinitions="auto">
-                <Label x:Name="PlayerModeLbl" Text="2 Player " Grid.Column="0" Style="{StaticResource Key=Message}" />
-                <Label x:Name="MessageLbl" Grid.Column="2" Style="{StaticResource Key=Message}"/>
+                <Label x:Name="PlayerModeLbl" Text="{Binding PlayerMode}" Grid.Column="0" Style="{StaticResource Key=Message}" />
+                <Label x:Name="MessageLbl" Text="{Binding GameMessage}" TextColor="{Binding GameMessageColorMAUI}" Grid.Column="2" Style="{StaticResource Key=Message}"/>
                 <Line Grid.Column="1" Y2="50"/>
             </Grid>
         </Border>
 
-        <Button x:Name="Card1Btn" Grid.Column="0" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[0]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card2Btn" Grid.Column="1" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[1]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card3Btn" Grid.Column="2" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[2]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card4Btn" Grid.Column="3" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[3]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card5Btn" Grid.Column="4" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[4]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
+        <Button x:Name="Card1Btn" Grid.Column="0" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[0]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card2Btn" Grid.Column="1" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[1]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card3Btn" Grid.Column="2" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[2]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card4Btn" Grid.Column="3" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[3]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card5Btn" Grid.Column="4" Grid.Row="2" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[4]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
 
-        <Button x:Name="Card6Btn" Grid.Column="0" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[5]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card7Btn" Grid.Column="1" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[6]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card8Btn" Grid.Column="2" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[7]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card9Btn" Grid.Column="3" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[8]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card10Btn" Grid.Column="4" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[9]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
+        <Button x:Name="Card6Btn" Grid.Column="0" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[5]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card7Btn" Grid.Column="1" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[6]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card8Btn" Grid.Column="2" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[7]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card9Btn" Grid.Column="3" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[8]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card10Btn" Grid.Column="4" Grid.Row="3" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[9]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
 
-        <Button x:Name="Card11Btn" Grid.Column="0" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[10]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card12Btn" Grid.Column="1" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[11]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card13Btn" Grid.Column="2" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[12]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card14Btn" Grid.Column="3" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[13]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card15Btn" Grid.Column="4" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[14]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
+        <Button x:Name="Card11Btn" Grid.Column="0" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[10]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card12Btn" Grid.Column="1" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[11]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card13Btn" Grid.Column="2" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[12]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card14Btn" Grid.Column="3" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[13]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card15Btn" Grid.Column="4" Grid.Row="4" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[14]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
 
-        <Button x:Name="Card16Btn" Grid.Column="0" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[15]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card17Btn" Grid.Column="1" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[16]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card18Btn" Grid.Column="2" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[17]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card19Btn" Grid.Column="3" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[18]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
-        <Button x:Name="Card20Btn" Grid.Column="4" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[19]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" TextColor="{Binding ForeColorMAUI}"/>
+        <Button x:Name="Card16Btn" Grid.Column="0" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[15]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card17Btn" Grid.Column="1" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[16]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card18Btn" Grid.Column="2" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[17]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card19Btn" Grid.Column="3" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[18]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
+        <Button x:Name="Card20Btn" Grid.Column="4" Grid.Row="5" Style="{StaticResource Key=Card}" BindingContext="{Binding Cards[19]}" Text="{Binding CardPicture}" Background="{Binding BackColorMAUI}" IsVisible="{Binding IsVisible}" TextColor="{Binding ForeColorMAUI}" Clicked="CardBtn_Clicked"/>
     </Grid>
 
 </ContentPage>

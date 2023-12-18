@@ -10,21 +10,26 @@ namespace MemoryGameSystem
         private List<Card> pickedcards = new();
         private enum TurnEnum { player1, player2 };
         private TurnEnum currentturn;
-        private bool playagainstcomputer = false;
         private Random rnd = new();
         private Card? card1 = null;
         private Card? card2 = null;
         public event PropertyChangedEventHandler? PropertyChanged;
-        private List<string> allproperties = new() { "PlayerMode", "Player1Score", "Player2Score", "GameMessage", "GameMessageColor","GameMessageColorMAUI", "StartButtonText", "Player2Name", "DisableBtnDuringPlay" };
+        private List<string> allproperties = new() { "PlayerMode", "Player1Score", "Player2Score", "GameMessage", "GameMessageColor", "GameMessageColorMAUI", "StartButtonText", "Player2Name", "DisableBtnDuringPlay" };
         private int match1;
         private int match2;
         private string player2 = string.Empty;
+        private bool _playagainstcomputer = false;
         public MemoryGame()
         {
             for (int i = 0; i < 20; i++)
             {
                 Cards.Add(new Card());
             }
+        }
+        public bool PlayAgainstComputer
+        {
+            get => _playagainstcomputer;
+            set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode"); InvokePropertyChanged(false, "Player2ScoreName"); }
         }
         public GameStatusEnum gamestatus { get; private set; } = GameStatusEnum.notstarted;
         public List<Card> Cards { get; private set; } = new();
@@ -46,10 +51,7 @@ namespace MemoryGameSystem
                         break;
                     case GameStatusEnum.finished:
                         if (Player1Score == Player2Score) { msg = "Tie!"; }
-                        else
-                        {
-                            msg = Player1Score > Player2Score ? "Player 1 won!" : player2 + " won!";
-                        }
+                        else { msg = Player1Score > Player2Score ? "Player 1 won!" : player2 + " won!"; }
                         break;
                 }
                 return msg;
@@ -58,15 +60,14 @@ namespace MemoryGameSystem
         public System.Drawing.Color GameMessageColor { get => gamestatus == GameStatusEnum.notstarted ? System.Drawing.Color.Black : gamestatus == GameStatusEnum.playing ? System.Drawing.Color.Green : System.Drawing.Color.MediumVioletRed; }
         public Microsoft.Maui.Graphics.Color GameMessageColorMAUI { get => ConvertToMauiColor(GameMessageColor); }
         public string StartButtonText { get => gamestatus == GameStatusEnum.playing ? "New Game" : "Start Game"; }
-        public string Player2Name { get => playagainstcomputer ? "Computer's Sets" : "Player 2 Sets"; }
-        public string PlayerMode { get => playagainstcomputer ? "Solo" : "2 Player"; }
+        public string Player2ScoreName { get => PlayAgainstComputer ? "Computer's Sets" : "Player 2 Sets"; }
+        public string PlayerMode { get => PlayAgainstComputer ? "Solo" : "2 Player"; }
         public bool DisableBtnDuringPlay { get => gamestatus == GameStatusEnum.playing ? false : true; }
 
 
-        public void StartNewGame(bool solo = false)
+        public void StartNewGame()
         {
-            playagainstcomputer = solo;
-            player2 = playagainstcomputer == true ? "Computer" : "Player 2";
+            player2 = PlayAgainstComputer == true ? "Computer" : "Player 2";
 
             if (gamestatus != GameStatusEnum.playing)
             {
@@ -87,7 +88,7 @@ namespace MemoryGameSystem
         }
         public async Task PlayCard(int cardindex)
         {
-            if (!playagainstcomputer || currentturn == TurnEnum.player1)
+            if (!PlayAgainstComputer || currentturn == TurnEnum.player1)
             { await DoMove(cardindex); }
         }
 
@@ -95,7 +96,7 @@ namespace MemoryGameSystem
         {
             Card selcard = Cards[cardindex];
 
-            if (selcard.CardStatus == Card.CardStatusEnum.Facedown && Cards.Count(c => 
+            if (selcard.CardStatus == Card.CardStatusEnum.Facedown && Cards.Count(c =>
             c.CardStatus == Card.CardStatusEnum.Faceup) < 2 && gamestatus == GameStatusEnum.playing)
             {
                 selcard.CardStatus = Card.CardStatusEnum.Faceup;
@@ -124,11 +125,11 @@ namespace MemoryGameSystem
                             {
                                 case TurnEnum.player1:
                                     Player1Score++;
-                                    InvokePropertyChanged(false,"Player1Score");
+                                    InvokePropertyChanged(false, "Player1Score");
                                     break;
                                 default:
                                     Player2Score++;
-                                    InvokePropertyChanged(false,"Player2Score");
+                                    InvokePropertyChanged(false, "Player2Score");
                                     break;
                             }
 
@@ -150,7 +151,7 @@ namespace MemoryGameSystem
                         card1 = null;
                         card2 = null;
 
-                        if (playagainstcomputer && currentturn == TurnEnum.player2 && gamestatus == GameStatusEnum.playing)
+                        if (PlayAgainstComputer && currentturn == TurnEnum.player2 && gamestatus == GameStatusEnum.playing)
                         {
                             await TwoSecDelay();
                             await DoComputerMove();

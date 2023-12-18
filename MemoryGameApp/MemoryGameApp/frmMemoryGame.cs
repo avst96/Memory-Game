@@ -10,12 +10,14 @@ namespace MemoryGameApp
         {
             InitializeComponent();
             btnStart.Click += BtnStart_Click;
+            optSolo.CheckedChanged += OptSolo_CheckedChanged;
+            game.PlayAgainstComputer = optSolo.Checked;
             lblMessage.DataBindings.Add("Text", game, "GameMessage");
             lblMessage.DataBindings.Add("ForeColor", game, "GameMessageColor");
             txtPlayer1Sets.DataBindings.Add("Text", game, "Player1Score");
             txtPlayer2Sets.DataBindings.Add("Text", game, "Player2Score");
             lblPlayerMode.DataBindings.Add("Text", game, "PlayerMode");
-            lblPlayer2Sets.DataBindings.Add("Text", game, "Player2Name");
+            lblPlayer2Sets.DataBindings.Add("Text", game, "Player2ScoreName");
             btnStart.DataBindings.Add("Text", game, "StartButtonText");
             optSolo.DataBindings.Add("Enabled", game, "DisableBtnDuringPlay");
             optTwoPlayer.DataBindings.Add("Enabled", game, "DisableBtnDuringPlay");
@@ -23,7 +25,9 @@ namespace MemoryGameApp
             {
                 if (c is Button btn)
                 {
-                    Card current = game.Cards[ExtractIndexFromName(btn.Name)];
+                    int index = ExtractIndexFromName(btn.Name);
+                    Card current = game.Cards[index];
+                    btn.Tag = index;
                     btn.Click += Card_Click;
                     btn.DataBindings.Add("ForeColor", current, "ForeColor");
                     btn.DataBindings.Add("Text", current, "CardPicture");
@@ -33,17 +37,21 @@ namespace MemoryGameApp
             }
         }
 
+        private void OptSolo_CheckedChanged(object? sender, EventArgs e)
+        {
+            game.PlayAgainstComputer = optSolo.Checked;
+        }
 
         private void BtnStart_Click(object? sender, EventArgs e)
         {
-            game.StartNewGame(optSolo.Checked);
+            game.StartNewGame();
         }
         private void Card_Click(object? sender, EventArgs e)
         {
-            if (sender is Button btn)
+            if (sender is Button btn && btn.Tag is int)
             {
-                int i = ExtractIndexFromName(btn.Name);
-                _ = game.PlayCard(i);
+
+                _ = game.PlayCard((int)btn.Tag);
             }
         }
 

@@ -9,9 +9,9 @@ namespace MemoryGameSystemTest
         public void StartGame()
         {
             MemoryGame game = new();
-            Assert.IsTrue(game.gamestatus == MemoryGame.GameStatusEnum.notstarted, "Game is not in notstarted status, cannot run test");
+            Assert.IsTrue(game.GameStatus == MemoryGame.GameStatusEnum.Notstarted, "Game is not in notstarted status, cannot run test");
             game.StartNewGame();
-            Assert.IsTrue(game.gamestatus == MemoryGame.GameStatusEnum.playing, "Game status has not changed to playing, test failed");
+            Assert.IsTrue(game.GameStatus == MemoryGame.GameStatusEnum.Playing, "Game status has not changed to playing, test failed");
             TestContext.WriteLine("Game status changed to playing from not started");
         }
 
@@ -30,7 +30,7 @@ namespace MemoryGameSystemTest
 
             do
             { game.StartNewGame(); }
-            while (game.gamestatus != MemoryGame.GameStatusEnum.playing);
+            while (game.GameStatus != MemoryGame.GameStatusEnum.Playing);
 
             game.Cards.ForEach(c => aftershuffle.Add(c.CardPicture));
 
@@ -54,7 +54,7 @@ namespace MemoryGameSystemTest
         {
             MemoryGame game = new();
             game.StartNewGame();
-            Assert.IsTrue(game.Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Facedown) == 20 && game.gamestatus == MemoryGame.GameStatusEnum.playing, "Not all cards are face down or game has not started yet, cannot run test.");
+            Assert.IsTrue(game.Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Facedown) == 20 && game.GameStatus == MemoryGame.GameStatusEnum.Playing, "Not all cards are face down or game has not started yet, cannot run test.");
             await game.PlayCard(cardind);
             Assert.IsTrue(game.Cards[cardind].CardStatus == Card.CardStatusEnum.Faceup, "Card was not picked");
             TestContext.WriteLine($"Card num {++cardind} was picked successfully.");
@@ -65,7 +65,7 @@ namespace MemoryGameSystemTest
             MemoryGame game = new();
             game.StartNewGame();
             Assert.IsTrue(game.Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Facedown) == 20
-                && game.gamestatus == MemoryGame.GameStatusEnum.playing
+                && game.GameStatus == MemoryGame.GameStatusEnum.Playing
                 && game.Player1Score == 0, "Something is wrong with game setup, cannot run test.");
             int card1 = 0;
             int card2 = game.Cards.FindLastIndex(c => c.CardPicture == game.Cards[card1].CardPicture);
@@ -82,7 +82,7 @@ namespace MemoryGameSystemTest
             MemoryGame game = new();
             game.PlayAgainstComputer = true;
             game.StartNewGame();
-            Assert.IsTrue(game.gamestatus == MemoryGame.GameStatusEnum.playing, "Game did not start");
+            Assert.IsTrue(game.GameStatus == MemoryGame.GameStatusEnum.Playing, "Game did not start");
 
             while (game.Cards.Count(c => c.IsVisible) > 1)
             {
@@ -90,7 +90,7 @@ namespace MemoryGameSystemTest
                 int card2 = game.Cards.FindLastIndex(c => c.CardPicture == game.Cards[card1].CardPicture);
                 await game.PlayCard(card1); await game.PlayCard(card2);
             }
-            Assert.IsTrue(game.Cards.Count(c => c.IsVisible) == 0 && game.gamestatus == MemoryGame.GameStatusEnum.finished, "Game was not changed to finish status");
+            Assert.IsTrue(game.Cards.Count(c => c.IsVisible) == 0 && game.GameStatus == MemoryGame.GameStatusEnum.Finished, "Game was not changed to finish status");
             TestContext.WriteLine($"Game finished with the following message {game.GameMessage}");
         }
 
@@ -98,8 +98,9 @@ namespace MemoryGameSystemTest
         public async Task ComputerPicksMatch()
         {
             MemoryGame game = new();
+            game.PlayAgainstComputer = true;
             game.StartNewGame();
-            Assert.IsTrue(game.gamestatus == MemoryGame.GameStatusEnum.playing, "Game did not start");
+            Assert.IsTrue(game.GameStatus == MemoryGame.GameStatusEnum.Playing, "Game did not start");
 
             await game.PlayCard(0);
             int cardnotmatch = game.Cards.FindIndex(c => c.CardPicture != game.Cards[0].CardPicture);
@@ -113,9 +114,9 @@ namespace MemoryGameSystemTest
             int cardmatch = game.Cards.FindIndex(1, c => c.CardPicture == game.Cards[0].CardPicture);
             await game.PlayCard(cardmatch);
             //Now the computer does its 2nd move
-            
+
             Assert.IsTrue(game.Player2Score == ++comscore, "Computer has not claimed any set in its 2nd turn");
-            Assert.IsTrue(game.Cards[0].CardStatus == Card.CardStatusEnum.Claimed, "Computer has a card buy not the 1st card that was uncovered. Results are inconclusive. Rerun test");
+            Assert.IsTrue(game.Cards[0].CardStatus == Card.CardStatusEnum.Claimed, "Computer has a card but not the 1st card that was uncovered. Results are inconclusive. Rerun test");
             TestContext.WriteLine("Computer has picked the 1st card with its matching card that have been previously picked.");
         }
     }

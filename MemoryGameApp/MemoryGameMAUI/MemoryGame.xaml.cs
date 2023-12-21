@@ -12,12 +12,10 @@ public partial class MemoryGame : ContentPage
     public MemoryGame()
     {
         InitializeComponent();
-        activegame = listgames[0];
-        BindingContext = activegame;
         Game1Rb.BindingContext = listgames[0];
         Game2Rb.BindingContext = listgames[1];
         Game3Rb.BindingContext = listgames[2];
-
+        activegame = listgames[0];
         foreach (View v in MainGrid.Children)
         {
             if (v is Button b)
@@ -25,9 +23,11 @@ public partial class MemoryGame : ContentPage
                 allbtns.Add(b);
             }
         }
+        activegame.TotalScoreChanged += Activegame_TotalScoreChanged;
         Loaded += MemoryGame_Loaded;
     }
 
+    
     private void MemoryGame_Loaded(object sender, EventArgs e)
     {
         Game1Rb.IsChecked = true;
@@ -61,5 +61,9 @@ public partial class MemoryGame : ContentPage
     private void SoloRb_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
         activegame.PlayAgainstComputer = SoloRb.IsChecked;
+    }
+    private void Activegame_TotalScoreChanged(object sender, EventArgs e)
+    {
+        ScoreTotalLbl.Text = Game.TotalScore;
     }
 }

@@ -35,8 +35,8 @@
                 <RadioButton x:Name="Game1Rb" Grid.Column="0" Margin="10,0,10,0" Content="{Binding GameNum, Mode=OneWay}" CheckedChanged="GameRB_CheckedChanged"/>
                 <RadioButton x:Name="Game2Rb" Grid.Column="1" Margin="0" Content="{Binding GameNum, Mode=OneWay}" CheckedChanged="GameRB_CheckedChanged"/>
                 <RadioButton x:Name="Game3Rb" Grid.Column="2" Margin="10,0,10,0" Content="{Binding GameNum, Mode=OneWay}" CheckedChanged="GameRB_CheckedChanged"/>
-                <Line Grid.Column="3" Y2="50"/>
-                <Label Grid.Column="4" x:Name="ScoreTotalLbl" HorizontalTextAlignment="Center" Text="test" Style="{StaticResource Key=Message}"/>
+                <Line Grid.Column="3" Y2="60"/>
+                <Label Grid.Column="4" x:Name="ScoreTotalLbl" HorizontalTextAlignment="Center" FontSize="Subtitle" TextColor="LightBlue"/>
             </Grid>
         </Border>
 

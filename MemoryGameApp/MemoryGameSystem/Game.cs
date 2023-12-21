@@ -5,6 +5,8 @@ namespace MemoryGameSystem
 {
     public class Game : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public event EventHandler? TotalScoreChanged;
         public enum GameStatusEnum { Playing, Finished, Notstarted };
         private List<List<Card>> sets = new();
         private List<Card> pickedcards = new();
@@ -13,12 +15,11 @@ namespace MemoryGameSystem
         private Random rnd = new();
         private Card? card1 = null;
         private Card? card2 = null;
-        public event PropertyChangedEventHandler? PropertyChanged;
         private List<string> allproperties = new() { "PlayerMode", "Player1Score", "Player2Score", "GameMessage", "GameMessageColor", "GameMessageColorMAUI", "StartButtonText", "Player2Name", "DisableBtnDuringPlay" };
         private int match1;
         private int match2;
         private string player2 = string.Empty;
-        private static int numgame = 0;
+        private static int numgame = 0, player1wins = 0, player2wins = 0, computerwins = 0, ties = 0;
         private bool _playagainstcomputer = false;
 
         public Game()
@@ -40,7 +41,7 @@ namespace MemoryGameSystem
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;
         public int Player2Score { get; private set; } = 0;
-        
+        public static string TotalScore { get => $"Player 1 won {player1wins} time(s)| Player 2 won {player2wins} time(s) {Environment.NewLine} Computer won {computerwins} time(s)| Game tied {ties} time(s)."; }
         public string GameMessage
         {
             get
@@ -56,8 +57,18 @@ namespace MemoryGameSystem
                         msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : player2 + "'s Turn";
                         break;
                     case GameStatusEnum.Finished:
-                        if (Player1Score == Player2Score) { msg = "Tie!"; }
-                        else { msg = Player1Score > Player2Score ? "Player 1 won!" : player2 + " won!"; }
+                        if (Player1Score == Player2Score) { msg = "Tie!"; ties++; }
+                        else
+                        {
+                            if (Player1Score > Player2Score) { msg = "Player 1 won!"; player1wins++; }
+                            else
+                            {
+                                msg = player2 + " won!";
+                                if (PlayAgainstComputer) { computerwins++; }
+                                else { player2wins++; }
+                            }
+                        }
+                        TotalScoreChanged?.Invoke(this, new EventArgs());
                         break;
                 }
                 return msg;
@@ -151,9 +162,11 @@ namespace MemoryGameSystem
                             card1.CardStatus = Card.CardStatusEnum.Facedown;
                             card2.CardStatus = Card.CardStatusEnum.Facedown;
                         }
-
-                        currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
-                        InvokePropertyChanged(false, "GameMessage");
+                        if (GameStatus == GameStatusEnum.Playing)
+                        {
+                            currentturn = currentturn == TurnEnum.player1 ? TurnEnum.player2 : TurnEnum.player1;
+                            InvokePropertyChanged(false, "GameMessage");
+                        }
                         card1 = null;
                         card2 = null;
 

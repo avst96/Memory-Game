@@ -1,15 +1,23 @@
+using MemoryGameSystem;
+
 namespace MemoryGameMAUI;
 
 public partial class MemoryGame : ContentPage
 {
-    MemoryGameSystem.MemoryGame game = new();
+    List<MemoryGameSystem.MemoryGame> listgames = new() { new MemoryGameSystem.MemoryGame(), new MemoryGameSystem.MemoryGame(), new MemoryGameSystem.MemoryGame() };
+    MemoryGameSystem.MemoryGame activegame;
+
     List<Button> allbtns = new();
 
     public MemoryGame()
     {
         InitializeComponent();
-        game.PlayAgainstComputer = SoloOpt.IsChecked;
-        BindingContext = game;
+        activegame = listgames[0];
+        BindingContext = activegame;
+        Game1Rb.BindingContext = listgames[0];
+        Game2Rb.BindingContext = listgames[1];
+        Game3Rb.BindingContext = listgames[2];
+
         foreach (View v in MainGrid.Children)
         {
             if (v is Button b)
@@ -17,24 +25,37 @@ public partial class MemoryGame : ContentPage
                 allbtns.Add(b);
             }
         }
+        Loaded += MemoryGame_Loaded;
+    }
+
+    private void MemoryGame_Loaded(object sender, EventArgs e)
+    {
+        Game1Rb.IsChecked = true;
     }
 
     private void StartBtn_Clicked(object sender, EventArgs e)
     {
-        game.StartNewGame();
-
+        activegame.StartNewGame();
     }
 
-    private void SoloOpt_CheckedChanged(object sender, CheckedChangedEventArgs e)
-    {
-        game.PlayAgainstComputer = SoloOpt.IsChecked;
-    }
 
     private void CardBtn_Clicked(object sender, EventArgs e)
     {
         if (sender is Button b)
         {
-            _ = game.PlayCard(allbtns.IndexOf((Button)sender));
+            _ = activegame.PlayCard(allbtns.IndexOf((Button)sender));
+        }
+    }
+
+    private void GameRB_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        if (sender is RadioButton rb)
+        {
+            if (rb.BindingContext != null && rb.IsChecked)
+            {
+                BindingContext = rb.BindingContext as MemoryGameSystem.MemoryGame;
+                activegame = rb.BindingContext as MemoryGameSystem.MemoryGame;
+            }
         }
     }
 }

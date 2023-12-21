@@ -18,19 +18,25 @@ namespace MemoryGameSystem
         private int match1;
         private int match2;
         private string player2 = string.Empty;
+        private static int numgame = 0;
+        //Backing fields
         private bool _playagainstcomputer = false;
         public MemoryGame()
         {
+            numgame++;
+            GameNum = "Game " + numgame;
             for (int i = 0; i < 20; i++)
             {
                 Cards.Add(new Card());
             }
         }
+        public string GameNum { get; private set; }
         public bool PlayAgainstComputer
         {
             get => _playagainstcomputer;
-            set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode"); InvokePropertyChanged(false, "Player2ScoreName"); }
+            set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode"); InvokePropertyChanged(false, "MultiPlayer"); InvokePropertyChanged(false, "Player2ScoreName"); }
         }
+        public bool MultiPlayer { get => !_playagainstcomputer; }
         public GameStatusEnum GameStatus { get; private set; } = GameStatusEnum.Notstarted;
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;
@@ -269,7 +275,7 @@ namespace MemoryGameSystem
 
             return new Microsoft.Maui.Graphics.Color(red, green, blue, alpha);
         }
-        
+
         private void InvokePropertyChanged(bool All = false, [CallerMemberName] string propertyname = "")
         {
             if (All) { allproperties.ForEach(p => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(p))); }

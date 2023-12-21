@@ -21,8 +21,8 @@
     <Grid x:Name="MainGrid" ColumnDefinitions="*,*,*,*,*" RowDefinitions="auto,auto,auto,*,*,*,*" ColumnSpacing="10" RowSpacing="10" Padding="10">
         <Grid ColumnDefinitions="auto,auto,auto,*,auto,auto,auto,auto" Grid.ColumnSpan="5" Grid.Row="0">
             <Button x:Name="StartBtn" Text="{Binding StartButtonText}" Margin="5" Grid.Column="0" Clicked="StartBtn_Clicked"/>
-            <RadioButton x:Name="MultiPlayerRb" IsEnabled="{Binding DisableBtnDuringPlay}" IsChecked="{Binding MultiPlayer}" Content="2 Player" Grid.Column="1"/>
-            <RadioButton x:Name="SoloRb" IsEnabled="{Binding DisableBtnDuringPlay}" IsChecked="{Binding PlayAgainstComputer}" Content="Play Against Computer" Grid.Column="2"/>
+            <RadioButton x:Name="MultiPlayerRb" IsEnabled="{Binding DisableBtnDuringPlay}" Content="2 Player" Grid.Column="1"/>
+            <RadioButton x:Name="SoloRb" IsEnabled="{Binding DisableBtnDuringPlay}"  Content="Play Against Computer" Grid.Column="2"/>
             <Line Y2="50" Grid.Column="3" HorizontalOptions="Center"/>
             <Label x:Name="Player1Lbl" Text="  Player 1 Sets:" VerticalTextAlignment="Center" Grid.Column="4"/>
             <Entry x:Name="Player1Txt" Text="{Binding Player1Score}" IsReadOnly="True" Grid.Column="5"/>

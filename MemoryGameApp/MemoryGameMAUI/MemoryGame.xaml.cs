@@ -4,8 +4,8 @@ namespace MemoryGameMAUI;
 
 public partial class MemoryGame : ContentPage
 {
-    List<MemoryGameSystem.MemoryGame> listgames = new() { new MemoryGameSystem.MemoryGame(), new MemoryGameSystem.MemoryGame(), new MemoryGameSystem.MemoryGame() };
-    MemoryGameSystem.MemoryGame activegame;
+    List<Game> listgames = new() { new Game(), new Game(), new Game() };
+    Game activegame;
 
     List<Button> allbtns = new();
 
@@ -43,7 +43,7 @@ public partial class MemoryGame : ContentPage
     {
         if (sender is Button b)
         {
-            _ = activegame.PlayCard(allbtns.IndexOf((Button)sender));
+            _ = activegame.PlayCard(allbtns.IndexOf(b));
         }
     }
 
@@ -53,9 +53,10 @@ public partial class MemoryGame : ContentPage
         {
             if (rb.BindingContext != null && rb.IsChecked)
             {
-                BindingContext = rb.BindingContext as MemoryGameSystem.MemoryGame;
-                activegame = rb.BindingContext as MemoryGameSystem.MemoryGame;
+                BindingContext = rb.BindingContext as Game;
+                activegame = rb.BindingContext as Game;
             }
         }
     }
+
 }

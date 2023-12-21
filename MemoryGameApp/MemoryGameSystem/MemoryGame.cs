@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace MemoryGameSystem
 {
-    public class MemoryGame : INotifyPropertyChanged
+    public class Game : INotifyPropertyChanged
     {
         public enum GameStatusEnum { Playing, Finished, Notstarted };
         private List<List<Card>> sets = new();
@@ -20,8 +20,8 @@ namespace MemoryGameSystem
         private string player2 = string.Empty;
         private static int numgame = 0;
         //Backing fields
-        private bool _playagainstcomputer = false;
-        public MemoryGame()
+        private bool _playagainstcomputer;
+        public Game()
         {
             numgame++;
             GameNum = "Game " + numgame;

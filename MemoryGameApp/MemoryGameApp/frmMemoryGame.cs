@@ -5,7 +5,7 @@ namespace MemoryGameApp
 {
     public partial class frmMemoryGame : Form
     {
-        MemoryGame game = new();
+        Game game = new();
         public frmMemoryGame()
         {
             InitializeComponent();

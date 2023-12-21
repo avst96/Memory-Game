@@ -6,7 +6,7 @@ namespace MemoryGameSystem
     public class Game : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
-        public event EventHandler? TotalScoreChanged;
+        public static event EventHandler? TotalScoreChanged;
         public enum GameStatusEnum { Playing, Finished, Notstarted };
         private List<List<Card>> sets = new();
         private List<Card> pickedcards = new();
@@ -35,13 +35,13 @@ namespace MemoryGameSystem
         public bool PlayAgainstComputer
         {
             get => _playagainstcomputer;
-            set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode"); InvokePropertyChanged(false, "MultiPlayer"); InvokePropertyChanged(false, "Player2ScoreName"); }
+            set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode");; InvokePropertyChanged(false, "Player2ScoreName"); }
         }
         public GameStatusEnum GameStatus { get; private set; } = GameStatusEnum.Notstarted;
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;
         public int Player2Score { get; private set; } = 0;
-        public static string TotalScore { get => $"Player 1 won {player1wins} time(s)| Player 2 won {player2wins} time(s) {Environment.NewLine} Computer won {computerwins} time(s)| Game tied {ties} time(s)."; }
+        public static string TotalScore { get => $"Player 1 won {player1wins} time(s) | Player 2 won {player2wins} time(s) {Environment.NewLine} Computer won {computerwins} time(s) | Game tied {ties} time(s)."; }
         public string GameMessage
         {
             get
@@ -57,18 +57,7 @@ namespace MemoryGameSystem
                         msg = currentturn == TurnEnum.player1 ? "Player 1's Turn" : player2 + "'s Turn";
                         break;
                     case GameStatusEnum.Finished:
-                        if (Player1Score == Player2Score) { msg = "Tie!"; ties++; }
-                        else
-                        {
-                            if (Player1Score > Player2Score) { msg = "Player 1 won!"; player1wins++; }
-                            else
-                            {
-                                msg = player2 + " won!";
-                                if (PlayAgainstComputer) { computerwins++; }
-                                else { player2wins++; }
-                            }
-                        }
-                        TotalScoreChanged?.Invoke(this, new EventArgs());
+                        msg = Player1Score == Player2Score ? "Tie!" : Player1Score > Player2Score ? "Player 1 won!" : player2 + " won!";
                         break;
                 }
                 return msg;
@@ -154,6 +143,11 @@ namespace MemoryGameSystem
                             if (Cards.Count(c => c.CardStatus == Card.CardStatusEnum.Claimed) == 20)
                             {
                                 GameStatus = GameStatusEnum.Finished;
+                                if (Player1Score == Player2Score) { ties++; }
+                                else if( Player1Score > Player2Score) { player1wins++; }
+                                else if(PlayAgainstComputer){ computerwins++; }
+                                else { player2wins++; }
+                                TotalScoreChanged?.Invoke(this, new());
                                 InvokePropertyChanged(true);
                             }
                         }

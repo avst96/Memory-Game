@@ -23,7 +23,7 @@ public partial class MemoryGame : ContentPage
                 allbtns.Add(b);
             }
         }
-        activegame.TotalScoreChanged += Activegame_TotalScoreChanged;
+        Game.TotalScoreChanged += Game_TotalScoreChanged;
         Loaded += MemoryGame_Loaded;
     }
 
@@ -62,7 +62,7 @@ public partial class MemoryGame : ContentPage
     {
         activegame.PlayAgainstComputer = SoloRb.IsChecked;
     }
-    private void Activegame_TotalScoreChanged(object sender, EventArgs e)
+    private void Game_TotalScoreChanged(object sender, EventArgs e)
     {
         ScoreTotalLbl.Text = Game.TotalScore;
     }

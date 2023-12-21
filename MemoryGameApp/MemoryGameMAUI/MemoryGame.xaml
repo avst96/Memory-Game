@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MemoryGameMAUI.MemoryGame"
-             Title="MemoryGame">
+             Title="Memory Game">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Entry">
@@ -22,19 +22,19 @@
         <Grid ColumnDefinitions="auto,auto,auto,*,auto,auto,auto,auto" Grid.ColumnSpan="5" Grid.Row="0">
             <Button x:Name="StartBtn" Text="{Binding StartButtonText}" Margin="5" Grid.Column="0" Clicked="StartBtn_Clicked"/>
             <RadioButton x:Name="MultiPlayerRb" IsEnabled="{Binding DisableBtnDuringPlay}" Content="2 Player" Grid.Column="1"/>
-            <RadioButton x:Name="SoloRb" IsEnabled="{Binding DisableBtnDuringPlay}"  Content="Play Against Computer" Grid.Column="2"/>
+            <RadioButton x:Name="SoloRb" IsEnabled="{Binding DisableBtnDuringPlay}" Content="Play Against Computer" Grid.Column="2" CheckedChanged="SoloRb_CheckedChanged"/>
             <Line Y2="50" Grid.Column="3" HorizontalOptions="Center"/>
             <Label x:Name="Player1Lbl" Text="  Player 1 Sets:" VerticalTextAlignment="Center" Grid.Column="4"/>
-            <Entry x:Name="Player1Txt" Text="{Binding Player1Score}" IsReadOnly="True" Grid.Column="5"/>
-            <Label x:Name="Player2Lbl" Text="{Binding Player2ScoreName}" VerticalTextAlignment="Center" Grid.Column="6"/>
-            <Entry x:Name="Player2Txt" Text="{Binding Player2Score}" IsReadOnly="True" Grid.Column="7"/>
+            <Entry x:Name="Player1Txt" Text="{Binding Player1Score, Mode=OneWay}" IsReadOnly="True" Grid.Column="5"/>
+            <Label x:Name="Player2Lbl" Text="{Binding Player2ScoreName, Mode=OneWay}" VerticalTextAlignment="Center" Grid.Column="6"/>
+            <Entry x:Name="Player2Txt" Text="{Binding Player2Score, Mode=OneWay}" IsReadOnly="True" Grid.Column="7"/>
         </Grid>
 
         <Border Grid.Row="1" Grid.ColumnSpan="5">
             <Grid ColumnDefinitions="auto,auto,auto,auto,*">
-                <RadioButton x:Name="Game1Rb" Grid.Column="0" Margin="10,0,10,0" Content="{Binding GameNum}" CheckedChanged="GameRB_CheckedChanged"/>
-                <RadioButton x:Name="Game2Rb" Grid.Column="1" Margin="0" Content="{Binding GameNum}" CheckedChanged="GameRB_CheckedChanged"/>
-                <RadioButton x:Name="Game3Rb" Grid.Column="2" Margin="10,0,10,0" Content="{Binding GameNum}" CheckedChanged="GameRB_CheckedChanged"/>
+                <RadioButton x:Name="Game1Rb" Grid.Column="0" Margin="10,0,10,0" Content="{Binding GameNum, Mode=OneWay}" CheckedChanged="GameRB_CheckedChanged"/>
+                <RadioButton x:Name="Game2Rb" Grid.Column="1" Margin="0" Content="{Binding GameNum, Mode=OneWay}" CheckedChanged="GameRB_CheckedChanged"/>
+                <RadioButton x:Name="Game3Rb" Grid.Column="2" Margin="10,0,10,0" Content="{Binding GameNum, Mode=OneWay}" CheckedChanged="GameRB_CheckedChanged"/>
                 <Line Grid.Column="3" Y2="50"/>
                 <Label Grid.Column="4" x:Name="ScoreTotalLbl" HorizontalTextAlignment="Center" Text="test" Style="{StaticResource Key=Message}"/>
             </Grid>

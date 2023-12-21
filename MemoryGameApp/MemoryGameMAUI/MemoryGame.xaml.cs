@@ -49,14 +49,17 @@ public partial class MemoryGame : ContentPage
 
     private void GameRB_CheckedChanged(object sender, CheckedChangedEventArgs e)
     {
-        if (sender is RadioButton rb)
+        if (sender is RadioButton rb && rb.BindingContext != null && rb.IsChecked)
         {
-            if (rb.BindingContext != null && rb.IsChecked)
-            {
-                BindingContext = rb.BindingContext as Game;
-                activegame = rb.BindingContext as Game;
-            }
+            activegame = (Game)rb.BindingContext;
+            BindingContext = activegame;
+            SoloRb.IsChecked = activegame.PlayAgainstComputer;
+            MultiPlayerRb.IsChecked = !activegame.PlayAgainstComputer;
         }
     }
 
+    private void SoloRb_CheckedChanged(object sender, CheckedChangedEventArgs e)
+    {
+        activegame.PlayAgainstComputer = SoloRb.IsChecked;
+    }
 }

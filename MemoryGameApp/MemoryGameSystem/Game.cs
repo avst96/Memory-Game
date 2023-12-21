@@ -19,8 +19,8 @@ namespace MemoryGameSystem
         private int match2;
         private string player2 = string.Empty;
         private static int numgame = 0;
-        //Backing fields
-        private bool _playagainstcomputer;
+        private bool _playagainstcomputer = false;
+
         public Game()
         {
             numgame++;
@@ -41,6 +41,7 @@ namespace MemoryGameSystem
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;
         public int Player2Score { get; private set; } = 0;
+        
         public string GameMessage
         {
             get

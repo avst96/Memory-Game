@@ -36,7 +36,6 @@ namespace MemoryGameSystem
             get => _playagainstcomputer;
             set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode"); InvokePropertyChanged(false, "MultiPlayer"); InvokePropertyChanged(false, "Player2ScoreName"); }
         }
-        public bool MultiPlayer { get => !_playagainstcomputer; }
         public GameStatusEnum GameStatus { get; private set; } = GameStatusEnum.Notstarted;
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;

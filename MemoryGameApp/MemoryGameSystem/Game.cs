@@ -3,8 +3,13 @@ using System.Runtime.CompilerServices;
 
 namespace MemoryGameSystem
 {
+    /// <summary>
+    /// A memory game 
+    /// </summary>
+
     public class Game : INotifyPropertyChanged
     {
+
         public event PropertyChangedEventHandler? PropertyChanged;
         public static event EventHandler? TotalScoreChanged;
         public enum GameStatusEnum { Playing, Finished, Notstarted };
@@ -31,13 +36,22 @@ namespace MemoryGameSystem
                 Cards.Add(new Card());
             }
         }
+        /// <summary>
+        /// Number of games started
+        /// </summary>
         public string GameNum { get; private set; }
         public bool PlayAgainstComputer
         {
             get => _playagainstcomputer;
-            set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode");; InvokePropertyChanged(false, "Player2ScoreName"); }
+            set { _playagainstcomputer = value; InvokePropertyChanged(false, "PlayerMode"); InvokePropertyChanged(false, "Player2ScoreName"); }
         }
+        /// <summary>
+        /// Current status of game. Options of Notstarted, Playing and Finished
+        /// </summary>
         public GameStatusEnum GameStatus { get; private set; } = GameStatusEnum.Notstarted;
+        /// <summary>
+        /// A list of all cards in game
+        /// </summary>
         public List<Card> Cards { get; private set; } = new();
         public int Player1Score { get; private set; } = 0;
         public int Player2Score { get; private set; } = 0;
@@ -63,6 +77,10 @@ namespace MemoryGameSystem
                 return msg;
             }
         }
+
+        /// <summary>
+        ///  Gets Game message color in system color, to get MAUI color use GameMessageColorMAUI
+        /// </summary>
         public System.Drawing.Color GameMessageColor { get => GameStatus == GameStatusEnum.Notstarted ? System.Drawing.Color.Black : GameStatus == GameStatusEnum.Playing ? System.Drawing.Color.Green : System.Drawing.Color.MediumVioletRed; }
         public Microsoft.Maui.Graphics.Color GameMessageColorMAUI { get => ConvertToMauiColor(GameMessageColor); }
         public string StartButtonText { get => GameStatus == GameStatusEnum.Playing ? "New Game" : "Start Game"; }
@@ -92,6 +110,10 @@ namespace MemoryGameSystem
             Player1Score = 0; Player2Score = 0;
             InvokePropertyChanged(true);
         }
+        /// <summary>
+        /// Play card that is passed in
+        /// </summary>
+        /// <param name="cardindex">A int representing the index (in Cards) of card chosen </param>
         public async Task PlayCard(int cardindex)
         {
             if (!PlayAgainstComputer || currentturn == TurnEnum.player1)
@@ -144,8 +166,8 @@ namespace MemoryGameSystem
                             {
                                 GameStatus = GameStatusEnum.Finished;
                                 if (Player1Score == Player2Score) { ties++; }
-                                else if( Player1Score > Player2Score) { player1wins++; }
-                                else if(PlayAgainstComputer){ computerwins++; }
+                                else if (Player1Score > Player2Score) { player1wins++; }
+                                else if (PlayAgainstComputer) { computerwins++; }
                                 else { player2wins++; }
                                 TotalScoreChanged?.Invoke(this, new());
                                 InvokePropertyChanged(true);

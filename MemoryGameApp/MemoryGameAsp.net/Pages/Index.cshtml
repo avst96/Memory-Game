@@ -1,0 +1,48 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div>
+    <h1 class="display-4 text-center mb-5">Memory Game</h1>
+    <div class="container">
+        <div class="row">
+            <div class="card bg-gradient mx-auto my-3 col-sm-4 px-0" style="width: 18rem;">
+                <h5 class="card-header mb-1 text-uppercase text-center">Game Description</h5>
+                <div class="card-body px-4">
+                    <div class="card-text lh-lg">
+                        <p>
+                            The game allows two players to compete against each other or for a single player to challenge the computer.<br /> It provides an interactive and entertaining experience for players of all ages. <br />
+                            A deck of 20 cards is placed face down, and the objective of the game is to uncover pairs of matching cards from the shuffled deck. By memorizing the positions of the cards and recalling their locations, players aim to make successful matches and accumulate sets.<br /> The player with the most cards at the end of the game wins.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-gradient mx-auto my-3 col-sm-4 px-0" style="width: 25rem;">
+                <h5 class="card-header mb-1 text-uppercase text-center">Features</h5>
+                <div class="card-body px-4">
+                    <div class="card-text lh-lg">
+                        <p>
+                            - Two-player mode: Players can compete against each other to find the most sets. Turns alternate between the players, and each player can flip over two cards per turn.<br />
+                            - Single-player mode: Players can challenge the computer, which attempts to find matching cards by following a specific algorithm. The computer's strategy adds an extra layer of challenge to the game.<br />
+                            - Interactive UI: The game provides a user-friendly interface with intuitive elements, such as a toolbar, score labels, and message bars, to enhance the gaming experience.<br />
+                            - Dynamic game process: The game starts when the player clicks the "Start" button. The UI elements update accordingly, and players take turns flipping cards. Once all the cards have been matched, the winner or a tie is announced.<br />
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-gradient mx-auto my-3 col-sm-4 px-0" style="width: 25rem;">
+                <h5 class="card-header mb-1 text-uppercase text-center">Wireframe</h5>
+                <div class="card-body px-4 d-flex flex-column">
+                    <img class="img-fluid mb-3" src="~/images/wireframe.png" alt="wireframe" />
+                    <div class="mt-auto mx-auto">
+                        <a href="~/pdf/memory game specs.pdf" target="_blank" class="btn btn-primary">Click here for full specs</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </p>
+</div>

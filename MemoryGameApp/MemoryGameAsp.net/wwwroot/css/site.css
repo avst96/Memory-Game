@@ -29,7 +29,28 @@ body {
     height: 95%;
     min-height: 100px;
     width: 70%;
+    font-family: wingding;
+    font-size: 4rem;
 }
+    .mycard:hover {
+        background-color: #f8de76f7;
+    }
+    .mycard::first-letter {
+        opacity: 0;
+    }
+.picked {
+    background-color: #fefce0;
+}
+    .picked::first-letter {
+        opacity: 1;
+    }
 td {
     padding-top: 20px;
+    align-content: center;
+    text-align: center;
+}
+
+@font-face {
+    font-family: 'wingding';
+    src: url('../fonts/wingding.ttf') format('truetype');
 }

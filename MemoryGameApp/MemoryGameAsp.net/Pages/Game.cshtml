@@ -5,15 +5,13 @@
 <div class="container border border-2 p-4 mt-5 col-lg-8">
 
     <div class="row border border-1 d-flex align-items-center text-info">
-        <div class="col-2 ps-0">
-            <button class="btn btn-primary custom-text-nowrap">Start Game</button>
+        <div class="col-2 ps-0 h-100">
+            <button class="btn btn-primary h-100 custom-text-nowrap" id="btnStart">Start Game</button>
         </div>
-        <div class="col-md-2 col-3 ">
-            <input class="form-check-input" type="radio" name="playerOption" value="2Player" checked />
-            <label class="form-check-label" for="2Player">2 Player</label>
-        </div>
-        <div class="col-md-2 col-2">
-            <input class="form-check-input" type="radio" name="playerOption" value="solo" />
+        <div class="col-auto ">
+            <input class="form-check-input bg-info" type="radio" name="playerOption" id="multiPlayer" value="2 Player" autocomplete="off" checked />
+            <label class="form-check-label me-2" for="multiPlayer">2 Player</label>
+            <input class="form-check-input bg-info" type="radio" name="playerOption" id="solo" value="Solo" autocomplete="off" />
             <label class="form-check-label" for="solo">Solo</label>
         </div>
         <div class="col border-1 border-end border-start">
@@ -25,79 +23,80 @@
             <label id="player2Sets">0</label>
         </div>
     </div>
+
     <div class="row border border-1 border-top-0 p-1 text-center fw-bold">
         <label class="col-2 border-end border-1" id="gameType">2 Player</label>
-        <label class="col-10" id="gameType">Press Start to Start Game</label>
+        <label class="col-10" id="gameMsg">Press Start to Start Game</label>
     </div>
-    @*Center card in td*@
+
     <div class="row">
         <table class="table-responsive">
             <tr>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard " id="c1">I</button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c2">I</button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c3">I</button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c4"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="mycard" id=""></button>
-                </td>
-                <td>
-                    <button class="mycard" id=""></button>
-                </td>
-                <td>
-                    <button class="mycard" id=""></button>
-                </td>
-                <td>
-                    <button class="mycard" id=""></button>
-                </td>
-                <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c5"></button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c6"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c7"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c8"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c9"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c10"></button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c11"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c12"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c13"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c14"></button>
                 </td>
                 <td>
-                    <button class="mycard" id=""></button>
+                    <button class="mycard" id="c15"></button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="mycard" id="c16"></button>
+                </td>
+                <td>
+                    <button class="mycard" id="c17"></button>
+                </td>
+                <td>
+                    <button class="mycard" id="c18"></button>
+                </td>
+                <td>
+                    <button class="mycard" id="c19"></button>
+                </td>
+                <td>
+                    <button class="mycard" id="c20"></button>
                 </td>
             </tr>
         </table>
@@ -105,46 +104,56 @@
 
 </div>
 
-@* remember to remove *@
-<div id="msg"></div>
+
 <script>
-    function handleResize() {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        let bpoint = "xs";
-        let color = "";
+    const startBtn = document.getElementById("btnStart");
+    const msg = document.getElementById("gameMsg");
+    const playerModeMsg = document.getElementById("gameType");
+    const rbMulti = document.getElementById('multiPlayer');
+    const rbSolo = document.getElementById('solo');
 
-        switch (true) {
-            case width >= 1400:
-                bpoint = "xxl";
-                color = "red"; // Set the color for xxl breakpoint
-                break;
-            case width >= 1200:
-                bpoint = "xl";
-                color = "orange"; // Set the color for xl breakpoint
-                break;
-            case width >= 992:
-                bpoint = "lg";
-                color = "green"; // Set the color for lg breakpoint
-                break;
-            case width >= 768:
-                bpoint = "md";
-                color = "blue"; // Set the color for md breakpoint
-                break;
-            case width >= 576:
-                bpoint = "sm";
-                color = "purple"; // Set the color for sm breakpoint
-                break;
+    let gameStatus = 0;
+    let isGameSolo = false;
+    let allCards = document.querySelectorAll('.mycard');
+
+    startBtn.addEventListener('click', startGame);
+    rbMulti.addEventListener('change', setPlayerModeMsg);
+    rbSolo.addEventListener('change', setPlayerModeMsg);
+    allCards.forEach(c => c.addEventListener('click', pickCard));
+    
+    function startGame() {
+        // If in middle of game, reset game
+        if (gameStatus) {
+            startBtn.innerHTML = "Start Game";
+            msg.innerHTML = "Press Start to Start Game";
+            rbMulti.removeAttribute('disabled');
+            rbSolo.removeAttribute('disabled');
+            allCards.forEach(c => c.classList.remove('picked'));
         }
-
-        const msgElement = document.getElementById("msg");
-        msgElement.innerHTML = `${bpoint} Width = ${width} Height = ${height}.`;
-        msgElement.style.color = color; // Change the text color based on the breakpoint
+        // Else start game
+        else {
+            startBtn.innerHTML = "Restart Game";
+            msg.innerHTML = "Game Started";
+            rbMulti.setAttribute('disabled', true);
+            rbSolo.setAttribute('disabled', true);
+            isGameSolo = rbSolo.checked;
+        }
+        gameStatus == 1 ? gameStatus = 0 : gameStatus = 1;
     }
 
-    // Add event listener for window resize
-    window.addEventListener("resize", handleResize);
+    function pickCard(event) {
+        if (!gameStatus) {
+            return;
+        }
+        let card = event.target;
+        if (!card.classList.contains('picked')) {
+            card.classList.add('picked');
+        }
+    }
 
-    // Add event listener for page load
-    document.addEventListener("DOMContentLoaded", handleResize);
+
+
+    function setPlayerModeMsg(event) {
+        document.getElementById("gameType").innerHTML = event.target.value;
+    }
 </script>

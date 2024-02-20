@@ -2,20 +2,149 @@
 @model MemoryGameAsp.net.Pages.GameModel
 @{
 }
-<div class="container-fluid mt-5">
-    
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-primary">Start Game</button>
+<div class="container border border-2 p-4 mt-5 col-lg-8">
+
+    <div class="row border border-1 d-flex align-items-center text-info">
+        <div class="col-2 ps-0">
+            <button class="btn btn-primary custom-text-nowrap">Start Game</button>
         </div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col"></div>
+        <div class="col-md-2 col-3 ">
+            <input class="form-check-input" type="radio" name="playerOption" value="2Player" checked />
+            <label class="form-check-label" for="2Player">2 Player</label>
+        </div>
+        <div class="col-md-2 col-2">
+            <input class="form-check-input" type="radio" name="playerOption" value="solo" />
+            <label class="form-check-label" for="solo">Solo</label>
+        </div>
+        <div class="col border-1 border-end border-start">
+            <label class="me-2">Player 1 Sets:</label>
+            <label id="player1Sets">0</label>
+        </div>
+        <div class="col">
+            <label class="me-2">Player 2 Sets:</label>
+            <label id="player2Sets">0</label>
+        </div>
     </div>
-    <div class="row"></div>
-    <div class="row"></div>
+    <div class="row border border-1 border-top-0 p-1 text-center fw-bold">
+        <label class="col-2 border-end border-1" id="gameType">2 Player</label>
+        <label class="col-10" id="gameType">Press Start to Start Game</label>
+    </div>
+    @*Center card in td*@
+    <div class="row">
+        <table class="table-responsive">
+            <tr>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+                <td>
+                    <button class="mycard" id=""></button>
+                </td>
+            </tr>
+        </table>
+    </div>
 
 </div>
+
+@* remember to remove *@
+<div id="msg"></div>
+<script>
+    function handleResize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        let bpoint = "xs";
+        let color = "";
+
+        switch (true) {
+            case width >= 1400:
+                bpoint = "xxl";
+                color = "red"; // Set the color for xxl breakpoint
+                break;
+            case width >= 1200:
+                bpoint = "xl";
+                color = "orange"; // Set the color for xl breakpoint
+                break;
+            case width >= 992:
+                bpoint = "lg";
+                color = "green"; // Set the color for lg breakpoint
+                break;
+            case width >= 768:
+                bpoint = "md";
+                color = "blue"; // Set the color for md breakpoint
+                break;
+            case width >= 576:
+                bpoint = "sm";
+                color = "purple"; // Set the color for sm breakpoint
+                break;
+        }
+
+        const msgElement = document.getElementById("msg");
+        msgElement.innerHTML = `${bpoint} Width = ${width} Height = ${height}.`;
+        msgElement.style.color = color; // Change the text color based on the breakpoint
+    }
+
+    // Add event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Add event listener for page load
+    document.addEventListener("DOMContentLoaded", handleResize);
+</script>

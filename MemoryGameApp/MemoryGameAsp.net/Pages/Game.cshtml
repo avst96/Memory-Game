@@ -164,6 +164,7 @@
 
             cardPairs.push([cards[i], cards[j]]);
             cards.splice(i, 1);
+            if (i < j) { j-- };
             cards.splice(j, 1);
         }
         for (let k = 0; k < cardPairs.length; k++) {

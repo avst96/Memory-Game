@@ -28,9 +28,10 @@ body {
     background-color: #ffa834;
     height: 95%;
     min-height: 100px;
-    width: 70%;
+    min-width: 80px;
+    width: 80%;
     font-family: wingding;
-    font-size: 4rem;
+    font-size: 3rem;
 }
     .mycard:hover {
         background-color: #f8de76f7;
@@ -44,6 +45,12 @@ body {
     .picked::first-letter {
         opacity: 1;
     }
+    .picked:hover {
+        background-color: #fefce0;
+    }
+.claimed {
+    visibility: hidden;
+}
 td {
     padding-top: 20px;
     align-content: center;

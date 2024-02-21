@@ -33,7 +33,7 @@
         <table class="table-responsive">
             <tr>
                 <td>
-                    <button class="mycard " id="c1"></button>
+                    <button class="mycard" id="c1"></button>
                 </td>
                 <td>
                     <button class="mycard" id="c2"></button>
@@ -112,46 +112,70 @@
     const playerOptions = document.querySelectorAll(".my-radio");
     const rbMulti = document.getElementById('multiPlayer');
     const rbSolo = document.getElementById('solo');
+    const currentTurnMsg = ["Player 1's Turn", "Player 2's Turn", "Computer's Turn", "Player 1 Won", "Player 2 Won", "Tie"];
+
+    //Function
+    const setTurnMsg = () => msg.innerHTML = currentTurnMsg[currentTurn];
 
     let gameStatus = 0;
     let isGameSolo = false;
     let allCards = document.querySelectorAll('.mycard');
+    let currentTurn = 0;
+    let player1Score;
+    let player2Score;
 
     startBtn.addEventListener('click', startGame);
-    playerOptions.forEach(o => o.addEventListener('change', setPlayerModeMsg));
-    allCards.forEach(c => c.addEventListener('click', pickCard));
+    playerOptions.forEach(o => o.addEventListener('change', event => document.getElementById("gameType").innerHTML = event.target.value));
+    allCards.forEach(c => c.addEventListener('click', doMove));
 
     function startGame() {
+
         // If in middle of game, reset game
         if (gameStatus) {
-            startBtn.innerHTML = "Start Game";
-            msg.innerHTML = "Press Start to Start Game";
-            playerOptions.forEach(o => o.removeAttribute('disabled'));
             allCards.forEach(c => c.classList.remove('picked'));
+            player1Score = 0;
+            player2Score = 0;
         }
         // Else start game
         else {
             shuffleCards();
-            startBtn.innerHTML = "Restart Game";
-            msg.innerHTML = "Game Started";
-            playerOptions.forEach(o => o.setAttribute('disabled', true));
             isGameSolo = rbSolo.checked;
+            currentTurn = 0;
         }
+        setGameMsgs();
         gameStatus == 1 ? gameStatus = 0 : gameStatus = 1;
     }
 
-    function pickCard(event) {
-        if (!gameStatus) {
-            return;
-        }
+
+
+      function doMove(event) {
+        if (!gameStatus || document.querySelectorAll('.picked').length == 2) { return; }
         let card = event.target;
         if (!card.classList.contains('picked')) {
             card.classList.add('picked');
         }
+        if (document.querySelectorAll('.picked').length == 2) {
+            setTimeout(() => checkMatch(), 2000);
+            
+        }
+    }
+
+    function checkMatch() {
+        let pickedCards = document.querySelectorAll('.picked');
+        if (pickedCards[0].innerHTML === pickedCards[1].innerHTML) {
+            currentTurn === 0 ? player1Score++ : player2Score++;
+            document.getElementById('player1Sets').innerHTML = player1Score;
+            document.getElementById('player2Sets').innerHTML = player2Score;
+            pickedCards.forEach(c => c.classList.add('claimed'));
+        }
+        pickedCards.forEach(c => c.classList.remove('picked'));
+        if (gameStatus) { currentTurn = currentTurn == 1 || currentTurn == 2 ? 0 : isGameSolo ? 2 : 1; };
+        setTurnMsg();
+        //!!
+        // if game is over, set currentTurn to correct number and gamestatus to 0
     }
 
     function shuffleCards() {
-        //something wrong not all cards get letter
         let cards = [];
         cards = [...document.querySelectorAll('.mycard')];
         let cardPairs = [];
@@ -169,14 +193,23 @@
         }
         for (let k = 0; k < cardPairs.length; k++) {
             cardPairs[k][0].innerHTML = String.fromCharCode(73 + k);
-            console.log(String.fromCharCode(73 + k));
             cardPairs[k][1].innerHTML = String.fromCharCode(73 + k);
-            console.log(String.fromCharCode(73 + k));
         }
     }
 
 
-    function setPlayerModeMsg(event) {
-        document.getElementById("gameType").innerHTML = event.target.value;
+    function setGameMsgs() {
+        if (gameStatus) {
+            startBtn.innerHTML = "Start Game";
+            msg.innerHTML = "Press Start to Start Game";
+            playerOptions.forEach(o => o.removeAttribute('disabled'));
+            msg.classList.remove('text-warning');
+        }
+        else {
+            startBtn.innerHTML = "Restart Game";
+            playerOptions.forEach(o => o.setAttribute('disabled', true));
+            msg.classList.add('text-warning');
+            setTurnMsg();
+        }
     }
 </script>

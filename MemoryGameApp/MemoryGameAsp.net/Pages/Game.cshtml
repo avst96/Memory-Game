@@ -9,9 +9,9 @@
             <button class="btn btn-primary h-100 custom-text-nowrap" id="btnStart">Start Game</button>
         </div>
         <div class="col-auto ">
-            <input class="form-check-input bg-info" type="radio" name="playerOption" id="multiPlayer" value="2 Player" autocomplete="off" checked />
+            <input class="form-check-input bg-info my-radio" type="radio" name="playerOption" id="multiPlayer" value="2 Player" autocomplete="off" checked />
             <label class="form-check-label me-2" for="multiPlayer">2 Player</label>
-            <input class="form-check-input bg-info" type="radio" name="playerOption" id="solo" value="Solo" autocomplete="off" />
+            <input class="form-check-input bg-info my-radio" type="radio" name="playerOption" id="solo" value="Solo" autocomplete="off" />
             <label class="form-check-label" for="solo">Solo</label>
         </div>
         <div class="col border-1 border-end border-start">
@@ -33,13 +33,13 @@
         <table class="table-responsive">
             <tr>
                 <td>
-                    <button class="mycard " id="c1">I</button>
+                    <button class="mycard " id="c1"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c2">I</button>
+                    <button class="mycard" id="c2"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c3">I</button>
+                    <button class="mycard" id="c3"></button>
                 </td>
                 <td>
                     <button class="mycard" id="c4"></button>
@@ -109,6 +109,7 @@
     const startBtn = document.getElementById("btnStart");
     const msg = document.getElementById("gameMsg");
     const playerModeMsg = document.getElementById("gameType");
+    const playerOptions = document.querySelectorAll(".my-radio");
     const rbMulti = document.getElementById('multiPlayer');
     const rbSolo = document.getElementById('solo');
 
@@ -117,25 +118,23 @@
     let allCards = document.querySelectorAll('.mycard');
 
     startBtn.addEventListener('click', startGame);
-    rbMulti.addEventListener('change', setPlayerModeMsg);
-    rbSolo.addEventListener('change', setPlayerModeMsg);
+    playerOptions.forEach(o => o.addEventListener('change', setPlayerModeMsg));
     allCards.forEach(c => c.addEventListener('click', pickCard));
-    
+
     function startGame() {
         // If in middle of game, reset game
         if (gameStatus) {
             startBtn.innerHTML = "Start Game";
             msg.innerHTML = "Press Start to Start Game";
-            rbMulti.removeAttribute('disabled');
-            rbSolo.removeAttribute('disabled');
+            playerOptions.forEach(o => o.removeAttribute('disabled'));
             allCards.forEach(c => c.classList.remove('picked'));
         }
         // Else start game
         else {
+            shuffleCards();
             startBtn.innerHTML = "Restart Game";
             msg.innerHTML = "Game Started";
-            rbMulti.setAttribute('disabled', true);
-            rbSolo.setAttribute('disabled', true);
+            playerOptions.forEach(o => o.setAttribute('disabled', true));
             isGameSolo = rbSolo.checked;
         }
         gameStatus == 1 ? gameStatus = 0 : gameStatus = 1;
@@ -151,6 +150,29 @@
         }
     }
 
+    function shuffleCards() {
+        //something wrong not all cards get letter
+        let cards = [];
+        cards = [...document.querySelectorAll('.mycard')];
+        let cardPairs = [];
+        while (cards.length > 1) {
+            let i = Math.floor(Math.random() * (cards.length));
+            let j = Math.floor(Math.random() * (cards.length));
+            while (i === j) {
+                j = Math.floor(Math.random() * (cards.length));
+            }
+
+            cardPairs.push([cards[i], cards[j]]);
+            cards.splice(i, 1);
+            cards.splice(j, 1);
+        }
+        for (let k = 0; k < cardPairs.length; k++) {
+            cardPairs[k][0].innerHTML = String.fromCharCode(73 + k);
+            console.log(String.fromCharCode(73 + k));
+            cardPairs[k][1].innerHTML = String.fromCharCode(73 + k);
+            console.log(String.fromCharCode(73 + k));
+        }
+    }
 
 
     function setPlayerModeMsg(event) {

@@ -21,8 +21,8 @@ namespace MemoryGameSystem
         private Card? card1 = null;
         private Card? card2 = null;
         private List<string> allproperties = new() { "PlayerMode", "Player1Score", "Player2Score", "GameMessage", "GameMessageColor", "GameMessageColorMAUI", "StartButtonText", "Player2Name", "DisableBtnDuringPlay" };
-        private int match1;
-        private int match2;
+        private int comPick1;
+        private int comPick2;
         private string player2 = string.Empty;
         private static int numgame = 0, player1wins = 0, player2wins = 0, computerwins = 0, ties = 0;
         private bool _playagainstcomputer = false;
@@ -246,8 +246,8 @@ namespace MemoryGameSystem
                 {
                     if (pickedcards[i].CardPicture == pickedcards[j].CardPicture)
                     {
-                        match1 = i;
-                        match2 = j;
+                        comPick1 = i;
+                        comPick2 = j;
                         return true;
                     }
                 }
@@ -260,9 +260,9 @@ namespace MemoryGameSystem
             //if set was already uncovered then pick it
             if (PickedCardsMatch())
             {
-                await DoMove(Cards.IndexOf(pickedcards[match1]));
+                await DoMove(Cards.IndexOf(pickedcards[comPick1]));
                 await TwoSecDelay();
-                await DoMove(Cards.IndexOf(pickedcards[match2]));
+                await DoMove(Cards.IndexOf(pickedcards[comPick2]));
             }
 
             //if set was not picked pick rnd card

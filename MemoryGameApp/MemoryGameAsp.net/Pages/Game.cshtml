@@ -2,7 +2,7 @@
 @model MemoryGameAsp.net.Pages.GameModel
 @{
 }
-<div class="container border border-2 p-4 mt-5 col-lg-8">
+<div class="container border border-2 p-4 mt-5 col-lg-8 ">
 
     <div class="row border border-1 d-flex align-items-center text-info">
         <div class="col-3 ps-0 h-100">
@@ -34,70 +34,70 @@
         <table class="table-responsive">
             <tr>
                 <td>
-                    <button class="mycard" id="c1"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c2"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c3"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c4"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c5"></button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <button class="mycard" id="c6"></button>
-                </td>
-                <td>
-                    <button class="mycard" id="c7"></button>
-                </td>
-                <td>
-                    <button class="mycard" id="c8"></button>
-                </td>
-                <td>
-                    <button class="mycard" id="c9"></button>
-                </td>
-                <td>
-                    <button class="mycard" id="c10"></button>
+                    <button class="mycard"></button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button class="mycard" id="c11"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c12"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c13"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c14"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c15"></button>
+                    <button class="mycard"></button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <button class="mycard" id="c16"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c17"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c18"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c19"></button>
+                    <button class="mycard"></button>
                 </td>
                 <td>
-                    <button class="mycard" id="c20"></button>
+                    <button class="mycard"></button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="mycard"></button>
+                </td>
+                <td>
+                    <button class="mycard"></button>
+                </td>
+                <td>
+                    <button class="mycard"></button>
+                </td>
+                <td>
+                    <button class="mycard"></button>
+                </td>
+                <td>
+                    <button class="mycard"></button>
                 </td>
             </tr>
         </table>
@@ -115,51 +115,69 @@
     const rbSolo = document.getElementById('solo');
     const currentTurnMsg = ["Player 1's Turn", "Player 2's Turn", "Computer's Turn", "Player 1 Won!", "Player 2 Won!", "Tie", "Computer Won!"];
     const prevPickedCards = [];
+    const allCards = document.querySelectorAll('.mycard');
 
-    //Function
-    const setTurnMsg = () => msg.innerHTML = currentTurnMsg[currentTurn];
 
     let gameStatus = 0;
     let isGameSolo = false;
-    let allCards = document.querySelectorAll('.mycard');
     let currentTurn = 0;
     let player1Score = 0;
     let player2Score = 0;
-    let match1;
-    let match2;
+    let comPick1;
+    let comPick2;
 
+
+    //Functions
+    const setTurnMsg = () => msg.innerHTML = currentTurnMsg[currentTurn];
+    const getRndNum = maxExcluded => Math.floor((Math.random() * maxExcluded));
+    const showScore = () => { document.getElementById('player1Sets').innerHTML = player1Score; document.getElementById('player2Sets').innerHTML = player2Score; }
+    const gameTypeMsgs = event => { document.getElementById("gameType").innerHTML = event.target.value; document.getElementById("player2name").innerHTML = rbSolo.checked ? "Computer Sets:" : "Player 2 Sets:"; }
+   
+
+    //Event Handlers
     startBtn.addEventListener('click', startGame);
     playerOptions.forEach(o => o.addEventListener('change', gameTypeMsgs));
     allCards.forEach(c => c.addEventListener('click', doMove));
 
     function startGame() {
-
-        // If in middle of game, reset game
         if (!gameStatus) {
             shuffleCards();
             isGameSolo = rbSolo.checked;
             currentTurn = 0;
+            prevPickedCards.length = 0;
         }
-        prevPickedCards.length = 0;
-        msg.classList.remove('bg-success');
-        setTurnMsg();
         allCards.forEach(c => c.classList.remove('picked', 'claimed'));
         player1Score = 0;
         player2Score = 0;
+        showScore();
         setGameMsgs();
         gameStatus == 1 ? gameStatus = 0 : gameStatus = 1;
     }
 
-
+    function setGameMsgs() {
+        if (gameStatus) {
+            startBtn.innerHTML = "Start Game";
+            msg.innerHTML = "Press Start to Start Game";
+            playerOptions.forEach(o => o.removeAttribute('disabled'));
+            msg.classList.remove('text-warning');
+        }
+        else {
+            startBtn.innerHTML = "Restart Game";
+            playerOptions.forEach(o => o.setAttribute('disabled', true));
+            msg.classList.add('text-warning');
+            msg.classList.remove('bg-success');
+            setTurnMsg();
+        }
+    }
 
     function doMove(event) {
         let card = event.target;
-        if (!gameStatus || card.classList.contains('picked') || document.querySelectorAll('.picked').length == 2) { return; }
+        if (!gameStatus || card.classList.contains('picked') || document.querySelectorAll('.picked').length === 2 || (currentTurn === 2 && event.isTrusted)) { return; }
 
         card.classList.add('picked');
         if (isGameSolo && !prevPickedCards.includes(card)) { prevPickedCards.push(card); }
 
-        if (document.querySelectorAll('.picked').length == 2) {
+        if (document.querySelectorAll('.picked').length === 2) {
             setTimeout(() => checkMatch(), 2000);
         }
     }
@@ -168,13 +186,14 @@
         let pickedCards = document.querySelectorAll('.picked');
         if (pickedCards[0].innerHTML === pickedCards[1].innerHTML) {
             currentTurn === 0 ? player1Score++ : player2Score++;
-            document.getElementById('player1Sets').innerHTML = player1Score;
-            document.getElementById('player2Sets').innerHTML = player2Score;
+            showScore();
+
             pickedCards.forEach(c => {
                 c.classList.add('claimed');
                 prevPickedCards.splice(prevPickedCards.indexOf(c), 1);
             });
         }
+
         pickedCards.forEach(c => c.classList.remove('picked'));
         setGameStatusAndMsg();
     }
@@ -187,7 +206,7 @@
             msg.classList.add('bg-success');
             playerOptions.forEach(o => o.removeAttribute('disabled'));
         };
-        if (gameStatus) { currentTurn = currentTurn == 1 || currentTurn == 2 ? 0 : isGameSolo ? 2 : 1; };
+        if (gameStatus) { currentTurn = currentTurn === 1 || currentTurn === 2 ? 0 : isGameSolo ? 2 : 1; };
         setTurnMsg();
         if (currentTurn === 2) { doComputerMove(); }
     }
@@ -195,22 +214,29 @@
 
     function doComputerMove() {
         if (gameStatus) {
-            if (pickedCardsMatch()) {
-                match1.click();
-                const date = Date.now();
-                while (Date.now() - date < 2000) { };
-                match2.click();
-            }
-            else {
-                //!!pick random card
-                // check that it doesn't match any card in picked cards
-                // if yes pick
-                // if not pick other random in list
+            if (!pickedCardsMatch()) {
+                let unclaimedCards = [...document.querySelectorAll(".mycard:not(.claimed)")];
+                comPick1 = unclaimedCards[getRndNum(unclaimedCards.length)];
+                comPick2 = null;
 
+                // Check if comPick1 is a match to any previously picked cards
+                prevPickedCards.forEach(c => {
+                    if (c.innerHTML === comPick1.innerHTML) { comPick2 = c; }
+                })
+
+                // If not assaign to random card
+                comPick2 = comPick2 || unclaimedCards[getRndNum(unclaimedCards.length)];
+
+                // While loop to make sure not picking the same card twice
+                while (comPick2 === comPick1) { comPick2 = unclaimedCards[getRndNum(unclaimedCards.length)]; }
             }
+
+            // Pick cards with delay
+            setTimeout(() => {
+                comPick1.click();
+                setTimeout(() => comPick2.click(), 1800);
+            }, 2000);
         }
-
-        //first check if any picked cards match
 
     }
 
@@ -220,8 +246,8 @@
             for (let i = 0; i < pickedCount; i++) {
                 for (let j = i + 1; j < pickedCount; j++) {
                     if (prevPickedCards[i].innerHTML === prevPickedCards[j].innerHTML) {
-                        match1 = prevPickedCards[i];
-                        match2 = prevPickedCards[j];
+                        comPick1 = prevPickedCards[i];
+                        comPick2 = prevPickedCards[j];
                         return true;
                     }
                 }
@@ -235,17 +261,19 @@
         cards = [...document.querySelectorAll('.mycard')];
         let cardPairs = [];
         while (cards.length > 1) {
-            let i = Math.floor(Math.random() * (cards.length));
-            let j = Math.floor(Math.random() * (cards.length));
+            let i = getRndNum(cards.length);
+            let j = getRndNum(cards.length);
             while (i === j) {
-                j = Math.floor(Math.random() * (cards.length));
+                j = getRndNum(cards.length);
             }
 
             cardPairs.push([cards[i], cards[j]]);
+
             cards.splice(i, 1);
             if (i < j) { j-- };
             cards.splice(j, 1);
         }
+
         for (let k = 0; k < cardPairs.length; k++) {
             cardPairs[k][0].innerHTML = String.fromCharCode(73 + k);
             cardPairs[k][1].innerHTML = String.fromCharCode(73 + k);
@@ -253,24 +281,4 @@
     }
 
 
-    function setGameMsgs() {
-        if (gameStatus) {
-            startBtn.innerHTML = "Start Game";
-            msg.innerHTML = "Press Start to Start Game";
-            playerOptions.forEach(o => o.removeAttribute('disabled'));
-            msg.classList.remove('text-warning');
-            msg.classList.remove('bg-success');
-        }
-        else {
-            startBtn.innerHTML = "Restart Game";
-            playerOptions.forEach(o => o.setAttribute('disabled', true));
-            msg.classList.add('text-warning');
-            setTurnMsg();
-        }
-    }
-
-    function gameTypeMsgs(event) {
-        document.getElementById("gameType").innerHTML = event.target.value;
-        document.getElementById("player2name").innerHTML = rbSolo.checked ? "Computer Sets:" : "Player 2 Sets:";
-    }
 </script>

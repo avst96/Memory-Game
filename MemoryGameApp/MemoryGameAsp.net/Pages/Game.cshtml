@@ -125,6 +125,8 @@
     let currentTurn = 0;
     let player1Score = 0;
     let player2Score = 0;
+    let match1;
+    let match2;
 
     startBtn.addEventListener('click', startGame);
     playerOptions.forEach(o => o.addEventListener('change', gameTypeMsgs));
@@ -187,6 +189,45 @@
         };
         if (gameStatus) { currentTurn = currentTurn == 1 || currentTurn == 2 ? 0 : isGameSolo ? 2 : 1; };
         setTurnMsg();
+        if (currentTurn === 2) { doComputerMove(); }
+    }
+
+
+    function doComputerMove() {
+        if (gameStatus) {
+            if (pickedCardsMatch()) {
+                match1.click();
+                const date = Date.now();
+                while (Date.now() - date < 2000) { };
+                match2.click();
+            }
+            else {
+                //!!pick random card
+                // check that it doesn't match any card in picked cards
+                // if yes pick
+                // if not pick other random in list
+
+            }
+        }
+
+        //first check if any picked cards match
+
+    }
+
+    function pickedCardsMatch() {
+        let pickedCount = prevPickedCards.length;
+        if (pickedCount > 1) {
+            for (let i = 0; i < pickedCount; i++) {
+                for (let j = i + 1; j < pickedCount; j++) {
+                    if (prevPickedCards[i].innerHTML === prevPickedCards[j].innerHTML) {
+                        match1 = prevPickedCards[i];
+                        match2 = prevPickedCards[j];
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     function shuffleCards() {

@@ -68,3 +68,7 @@ td {
     }
 }
 
+.stay-on-line {
+    white-space: nowrap;
+    display: inline;
+}

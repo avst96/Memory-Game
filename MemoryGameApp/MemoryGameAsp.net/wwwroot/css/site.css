@@ -67,7 +67,17 @@ td {
         border: 2px solid white; 
     }
 }
+@media(min-width: 576px){
+    .sm-border{
+        border: 1px solid white;
+    }
 
+}
+@media(max-width: 576px) {
+    .under-sm-border {
+        border: 1px solid white;
+    }
+}
 .stay-on-line {
     white-space: nowrap;
     display: inline;

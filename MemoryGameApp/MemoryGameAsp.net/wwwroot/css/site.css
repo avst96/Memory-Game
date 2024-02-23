@@ -24,6 +24,7 @@ html {
 body {
     margin-bottom: 60px;
 }
+
 .mycard {
     background-color: #ffa834;
     height: 95%;
@@ -33,24 +34,39 @@ body {
     font-family: wingding;
     font-size: 3.5rem;
 }
-    .mycard:hover {
-        background-color: #f8de76f7;
+
+@media(max-width: 400px) {
+    .mycard {
+        font-size: 2rem;
+        min-height: 70px;
+        min-width: 50px;
     }
-    .mycard::first-letter {
-        opacity: 0;
-    }
+}
+
+.mycard:hover {
+    background-color: #f8de76f7;
+}
+
+.mycard::first-letter {
+    opacity: 0;
+}
+
 .picked {
     background-color: #fefce0;
 }
+
     .picked::first-letter {
         opacity: 1;
     }
+
     .picked:hover {
         background-color: #fefce0;
     }
+
 .claimed {
     visibility: hidden;
 }
+
 td {
     padding-top: 20px;
     align-content: center;
@@ -61,23 +77,26 @@ td {
     font-family: 'wingding';
     src: url('../fonts/wingding.ttf') format('truetype');
 }
+
 @media (min-width: 420px) {
-    
+
     .conditional-border {
-        border: 2px solid white; 
+        border: 2px solid white;
     }
 }
-@media(min-width: 576px){
-    .sm-border{
+
+@media(min-width: 576px) {
+    .sm-border {
         border: 1px solid white;
     }
-
 }
+
 @media(max-width: 576px) {
     .under-sm-border {
         border: 1px solid white;
     }
 }
+
 .stay-on-line {
     white-space: nowrap;
     display: inline;

@@ -28,7 +28,7 @@ body {
     background-color: #ffa834;
     height: 95%;
     min-height: 100px;
-    min-width: 80px;
+    min-width: 70px;
     width: 80%;
     font-family: wingding;
     font-size: 3.5rem;
@@ -61,3 +61,10 @@ td {
     font-family: 'wingding';
     src: url('../fonts/wingding.ttf') format('truetype');
 }
+@media (min-width: 420px) {
+    
+    .conditional-border {
+        border: 2px solid white; 
+    }
+}
+

@@ -10,11 +10,11 @@
         </div>
         <div class="col-12 col-sm text-center under-sm-border border-top-0 border-start-0 border-end-0 pb-2 pb-sm-0 mb-sm-0 mb-2">
             <div class="stay-on-line">
-                <input class="form-check-input bg-info my-radio" type="radio" name="playerOption" id="multiPlayer" value="2 Player" autocomplete="off" checked />
+                <input class="form-check-input bg-info my-radio me-1" type="radio" name="playerOption" id="multiPlayer" value="2 Player" autocomplete="off" checked />
                 <label class="form-check-label me-2" for="multiPlayer">2 Player</label>
             </div>
             <div class="stay-on-line">
-                <input class="form-check-input bg-info my-radio" type="radio" name="playerOption" id="solo" value="Solo" autocomplete="off" />
+                <input class="form-check-input bg-info my-radio me-1" type="radio" name="playerOption" id="solo" value="Solo" autocomplete="off" />
                 <label class="form-check-label" for="solo">Solo</label>
             </div>
         </div>
@@ -111,17 +111,16 @@
 
 @section Scripts {
     <script>
-        let startBtn;
-        let msg;
-        const playerModeMsg = document.getElementById("gameType");
-        const playerOptions = document.querySelectorAll(".my-radio");
-        const rbMulti = document.getElementById('multiPlayer');
         const rbSolo = document.getElementById('solo');
         const currentTurnMsg = ["Player 1's Turn", "Player 2's Turn", "Computer's Turn", "Player 1 Won!", "Player 2 Won!", "Tie", "Computer Won!"];
         const prevPickedCards = [];
-        const allCards = document.querySelectorAll('.mycard');
+       
 
 
+        let allCards;
+        let startBtn;
+        let msg;
+        let playerOptions;
         let gameStatus = 0;
         let isGameSolo = false;
         let currentTurn = 0;
@@ -132,23 +131,22 @@
 
 
         $(document).ready(function () {
-            //!! jQuery methods go here...
+            //Variable assignments
             startBtn = $("#btnStart");
-            //!! Change all msg to jquery
+            playerOptions = $(".my-radio");
             msg = $("#gameMsg");
-
+            allCards = $('.mycard');
 
             //Event Handlers
-            playerOptions.forEach(o => o.addEventListener('change', gameTypeMsgs));
-            allCards.forEach(c => c.addEventListener('click', doMove));
+            playerOptions.change(gameTypeMsgs);
             startBtn.click(startGame);
-
+            allCards.click(doMove);
         });
         //Functions
-        const setTurnMsg = () => msg.innerHTML = currentTurnMsg[currentTurn];
+        const setTurnMsg = () => msg.text(currentTurnMsg[currentTurn]);
         const getRndNum = maxExcluded => Math.floor((Math.random() * maxExcluded));
-        const showScore = () => { document.getElementById('player1Sets').innerHTML = player1Score; document.getElementById('player2Sets').innerHTML = player2Score; }
-        const gameTypeMsgs = event => { document.getElementById("gameType").innerHTML = event.target.value; document.getElementById("player2name").innerHTML = rbSolo.checked ? "Computer Sets:" : "Player 2 Sets:"; }
+        const showScore = () => { $('#player1Sets').text(player1Score);$('#player2Sets').text(player2Score); }
+        const gameTypeMsgs = event => { $("#gameType").text(event.target.value); $("#player2name").text(rbSolo.checked ? "Computer Sets:" : "Player 2 Sets:"); }
 
 
 
@@ -159,7 +157,7 @@
                 currentTurn = 0;
                 prevPickedCards.length = 0;
             }
-            allCards.forEach(c => c.classList.remove('picked', 'claimed'));
+            allCards.removeClass('picked claimed');
             player1Score = 0;
             player2Score = 0;
             showScore();
@@ -170,27 +168,27 @@
         function setGameMsgs() {
             if (gameStatus) {
                 startBtn.text("Start Game");
-                msg.innerHTML = "Press Start to Start Game";
-                playerOptions.forEach(o => o.removeAttribute('disabled'));
-                msg.classList.remove('text-warning');
+                msg.text("Press Start to Start Game");
+                playerOptions.removeAttr('disabled');
+                msg.removeClass('text-warning');
             }
             else {
                 startBtn.text("Restart Game");
-                playerOptions.forEach(o => o.setAttribute('disabled', true));
-                msg.classList.add('text-warning');
-                msg.classList.remove('bg-success');
+                playerOptions.attr('disabled', true);
+                msg.addClass('text-warning');
+                msg.removeClass('bg-success');
                 setTurnMsg();
             }
         }
 
         function doMove(event) {
             let card = event.target;
-            if (!gameStatus || card.classList.contains('picked') || document.querySelectorAll('.picked').length === 2 || (currentTurn === 2 && event.isTrusted)) { return; }
+            if (!gameStatus || card.classList.contains('picked') || $('.picked').length === 2 || (currentTurn === 2 && event.originalEvent.isTrusted)) { return; }
 
-            card.classList.add('picked');
+            $(card).addClass('picked');
             if (isGameSolo && !prevPickedCards.includes(card)) { prevPickedCards.push(card); }
 
-            if (document.querySelectorAll('.picked').length === 2) {
+            if ($('.picked').length === 2) {
                 setTimeout(() => checkMatch(), 2000);
             }
         }
@@ -216,8 +214,8 @@
                 gameStatus = 0;
                 if (player1Score === player2Score) { currentTurn = 5; }
                 else { currentTurn = player1Score > player2Score ? 3 : isGameSolo ? 6 : 4; }
-                msg.classList.add('bg-success');
-                playerOptions.forEach(o => o.removeAttribute('disabled'));
+                msg.addClass('bg-success');
+                playerOptions.removeAttr('disabled');
             };
             if (gameStatus) { currentTurn = currentTurn === 1 || currentTurn === 2 ? 0 : isGameSolo ? 2 : 1; };
             setTurnMsg();

@@ -37,9 +37,9 @@ body {
 
 @media(max-width: 400px) {
     .mycard {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         min-height: 70px;
-        min-width: 10vw;
+        min-width: 15vw;
     }
 }
 

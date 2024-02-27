@@ -114,7 +114,7 @@
         const rbSolo = document.getElementById('solo');
         const currentTurnMsg = ["Player 1's Turn", "Player 2's Turn", "Computer's Turn", "Player 1 Won!", "Player 2 Won!", "Tie", "Computer Won!"];
         const prevPickedCards = [];
-       
+
 
 
         let allCards;
@@ -145,7 +145,7 @@
         //Functions
         const setTurnMsg = () => msg.text(currentTurnMsg[currentTurn]);
         const getRndNum = maxExcluded => Math.floor((Math.random() * maxExcluded));
-        const showScore = () => { $('#player1Sets').text(player1Score);$('#player2Sets').text(player2Score); }
+        const showScore = () => { $('#player1Sets').text(player1Score); $('#player2Sets').text(player2Score); }
         const gameTypeMsgs = event => { $("#gameType").text(event.target.value); $("#player2name").text(rbSolo.checked ? "Computer Sets:" : "Player 2 Sets:"); }
 
 
@@ -194,23 +194,20 @@
         }
 
         function checkMatch() {
-            let pickedCards = document.querySelectorAll('.picked');
-            if (pickedCards[0].innerHTML === pickedCards[1].innerHTML) {
+            let pickedCards = $('.picked');
+            if (pickedCards.eq(0).text() === pickedCards.eq(1).text()) {
                 currentTurn === 0 ? player1Score++ : player2Score++;
                 showScore();
-
-                pickedCards.forEach(c => {
-                    c.classList.add('claimed');
-                    prevPickedCards.splice(prevPickedCards.indexOf(c), 1);
-                });
+                pickedCards.addClass('claimed');
+                pickedCards.each(() => prevPickedCards.splice(prevPickedCards.indexOf(this)), 1);
             }
 
-            pickedCards.forEach(c => c.classList.remove('picked'));
+            pickedCards.removeClass('picked');
             setGameStatusAndMsg();
         }
 
         function setGameStatusAndMsg() {
-            if (document.querySelectorAll('.claimed').length === 20) {
+            if ($('.claimed').length === 20) {
                 gameStatus = 0;
                 if (player1Score === player2Score) { currentTurn = 5; }
                 else { currentTurn = player1Score > player2Score ? 3 : isGameSolo ? 6 : 4; }

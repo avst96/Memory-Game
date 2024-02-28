@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryGameSystemTest", "Mem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryGameSystem", "MemoryGameSystem\MemoryGameSystem.csproj", "{9C0CB03A-D859-4EFB-9F85-EB9AD2582DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryGameAsp.net", "MemoryGameAsp.net\MemoryGameAsp.net.csproj", "{CA7B5E79-B0AC-441B-B50F-B22A0493E51F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MemoryGameAsp.net", "MemoryGameAsp.net\MemoryGameAsp.net.csproj", "{CA7B5E79-B0AC-441B-B50F-B22A0493E51F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -30,7 +30,7 @@ namespace gameTs {
         //Event Handlers
         playerOptions.change(gameTypeMsgs);
         startBtn.click(startGame);
-        allCards.click(doMove as any);
+        allCards.click(doMove);
         
     });
     //Functions
@@ -75,7 +75,7 @@ namespace gameTs {
         }
     }
 
-    function doMove(event: MouseEvent) {
+    function doMove() {
         let card = (event.target as HTMLElement);
         if (!gameStatus || card.classList.contains('picked') || $('.picked').length === 2 || (currentTurn === 2 && (event.isTrusted))) { return; }
 

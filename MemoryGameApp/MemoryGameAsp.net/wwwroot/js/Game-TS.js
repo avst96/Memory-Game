@@ -59,7 +59,7 @@ var gameTs;
             setTurnMsg();
         }
     }
-    function doMove(event) {
+    function doMove() {
         let card = event.target;
         if (!gameStatus || card.classList.contains('picked') || $('.picked').length === 2 || (currentTurn === 2 && (event.isTrusted))) {
             return;

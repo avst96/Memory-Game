@@ -30,7 +30,7 @@ namespace gameTs {
         //Event Handlers
         playerOptions.change(gameTypeMsgs);
         startBtn.click(startGame);
-        allCards.click(doMove);
+        allCards.click(doMove as any);
         
     });
     //Functions

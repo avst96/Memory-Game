@@ -1,24 +1,26 @@
-﻿namespace gameTs {
-    const rbSolo = document.getElementById('solo');
+﻿
+namespace gameTs {
+
+    const rbSolo: HTMLInputElement = (document.getElementById('solo') as HTMLInputElement);
     const currentTurnMsg = ["Player 1's Turn", "Player 2's Turn", "Computer's Turn", "Player 1 Won!", "Player 2 Won!", "Tie", "Computer Won!"];
-    const prevPickedCards = [];
+    const prevPickedCards: Array<HTMLElement> = [];
 
 
 
-    let allCards;
-    let startBtn;
-    let msg;
-    let playerOptions;
+    let allCards: JQuery<HTMLButtonElement>;
+    let startBtn: JQuery<HTMLElement>;
+    let playerOptions: JQuery<HTMLInputElement>;
+    let msg: JQuery<HTMLLabelElement>;
     let gameStatus = 0;
     let isGameSolo = false;
     let currentTurn = 0;
     let player1Score = 0;
     let player2Score = 0;
-    let comPick1;
-    let comPick2;
+    let comPick1: HTMLElement;
+    let comPick2: HTMLElement;
 
 
-    $(document).ready(function () {
+    $(function () {
         //Variable assignments
         startBtn = $("#btnStart");
         playerOptions = $(".my-radio");
@@ -29,12 +31,16 @@
         playerOptions.change(gameTypeMsgs);
         startBtn.click(startGame);
         allCards.click(doMove);
+        
     });
     //Functions
     const setTurnMsg = () => msg.text(currentTurnMsg[currentTurn]);
-    const getRndNum = maxExcluded => Math.floor((Math.random() * maxExcluded));
+    const getRndNum = (maxExcluded: number) => Math.floor((Math.random() * maxExcluded));
     const showScore = () => { $('#player1Sets').text(player1Score); $('#player2Sets').text(player2Score); }
-    const gameTypeMsgs = event => { $("#gameType").text(event.target.value); $("#player2name").text(rbSolo.checked ? "Computer Sets:" : "Player 2 Sets:"); }
+    const gameTypeMsgs = (event: { target: HTMLInputElement }) => {
+        $("#gameType").text(event.target.value);
+        $("#player2name").text(rbSolo.checked ? "Computer Sets:" : "Player 2 Sets:");
+    }
 
 
 
@@ -62,16 +68,16 @@
         }
         else {
             startBtn.text("Restart Game");
-            playerOptions.attr('disabled', true);
+            playerOptions.attr('disabled', 'true');
             msg.addClass('text-warning');
             msg.removeClass('bg-success');
             setTurnMsg();
         }
     }
 
-    function doMove(event) {
-        let card = event.target;
-        if (!gameStatus || card.classList.contains('picked') || $('.picked').length === 2 || (currentTurn === 2 && event.originalEvent.isTrusted)) { return; }
+    function doMove(event: MouseEvent) {
+        let card = (event.target as HTMLElement);
+        if (!gameStatus || card.classList.contains('picked') || $('.picked').length === 2 || (currentTurn === 2 && (event.isTrusted))) { return; }
 
         $(card).addClass('picked');
         if (isGameSolo && !prevPickedCards.includes(card)) { prevPickedCards.push(card); }
@@ -87,7 +93,7 @@
             currentTurn === 0 ? player1Score++ : player2Score++;
             showScore();
             pickedCards.addClass('claimed');
-            pickedCards.each(() => prevPickedCards.splice(prevPickedCards.indexOf(this)), 1);
+            pickedCards.each(() => void prevPickedCards.splice(prevPickedCards.indexOf(this), 1));
         }
 
         pickedCards.removeClass('picked');
@@ -111,7 +117,7 @@
     function doComputerMove() {
         if (gameStatus) {
             if (!pickedCardsMatch()) {
-                let unclaimedCards = [...document.querySelectorAll(".mycard:not(.claimed)")];
+                let unclaimedCards = [...document.querySelectorAll <HTMLElement>(".mycard:not(.claimed)")];
                 comPick1 = unclaimedCards[getRndNum(unclaimedCards.length)];
                 comPick2 = null;
 

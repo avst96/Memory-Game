@@ -200,7 +200,7 @@
                 currentTurn === 0 ? player1Score++ : player2Score++;
                 showScore();
                 pickedCards.addClass('claimed');
-                pickedCards.each(() => prevPickedCards.splice(prevPickedCards.indexOf(this)), 1);
+                pickedCards.each(() => prevPickedCards.splice(prevPickedCards.indexOf(this), 1);
             }
 
             pickedCards.removeClass('picked');
